@@ -2,161 +2,103 @@
 'use client'
 
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
 import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
-
-interface PaginationProps {
-  totalPages: number
-  currentPage: number
-}
 
 interface ListLayoutProps {
   posts: CoreContent<Blog>[]
   title: string
   initialDisplayPosts?: CoreContent<Blog>[]
-  pagination?: PaginationProps
 }
 
-// Pagination component for navigating between pages
-function Pagination({ totalPages, currentPage }: PaginationProps) {
-  const pathname = usePathname()
-  const basePath = pathname.split('/')[1]
-  const prevPage = currentPage - 1 > 0
-  const nextPage = currentPage + 1 <= totalPages
-
-  return (
-    <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-      <nav className="flex justify-between">
-        {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
-            Previous
-          </button>
-        )}
-        {prevPage && (
-          <Link
-            href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
-            rel="prev"
-          >
-            Previous
-          </Link>
-        )}
-        <span>
-          {currentPage} of {totalPages}
-        </span>
-        {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
-            Next
-          </button>
-        )}
-        {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
-          </Link>
-        )}
-      </nav>
-    </div>
-  )
-}
-
-// Main component to render blog posts with tag filtering
-export default function ListLayoutWithTags({
-  posts,
-  title,
-  pagination,
-}: ListLayoutProps) {
+export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const tagCounts = tagData as Record<string, number>
   const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  // State for the currently selected tag (null = no filter)
+  const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
-  // Modified toggleTag logic
+  // Toggles tag selection for filtering posts
   const toggleTag = (tag: string) => {
-    setSelectedTags((prevSelected) => {
-      // Jeśli kliknięty tag jest już wybrany, odklikaj go (pokazuje wszystkie artykuły)
-      if (prevSelected.includes(tag)) {
-        return []
-      }
-      // Jeśli kliknięto nowy tag, ustaw go jako jedyny wybrany
-      return [tag]
-    })
+    setSelectedTag((prevSelected) => (prevSelected === tag ? null : tag))
   }
 
-  const filteredPosts =
-    selectedTags.length > 0
-      ? posts.filter((post) =>
-          selectedTags.every((tag) => post.tags.includes(tag)) // Ensure all selected tags match
-        )
-      : posts
-
-  const displayPosts = filteredPosts // Use filteredPosts for rendering
-
-  console.log('Selected Tags:', selectedTags) // Debugging
-  console.log('Filtered Posts:', filteredPosts) // Debugging
+  // Filter posts based on selected tag
+  const filteredPosts = selectedTag
+    ? posts.filter((post) => post.tags.includes(selectedTag))
+    : posts
 
   return (
-    <>
-      <div>
-        {/* Tags Section */}
-        <div className="flex flex-wrap gap-4 mb-6">
-          {sortedTags.map((t) => (
-            <button
-              key={t}
-              onClick={() => toggleTag(t)}
-              className={`px-3 py-2 text-sm font-medium uppercase rounded-full ${
-                selectedTags.includes(t)
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
-              aria-label={`Filter posts by ${t}`}
-            >
-              {`${t} (${tagCounts[t]})`}
-            </button>
-          ))}
-        </div>
-
-        {/* Blog Posts */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {displayPosts.map((post) => {
-            const { path, date, title, summary, tags } = post
-            return (
-              <div key={path} className="p-4 border rounded-lg shadow-md">
-                <article className="flex flex-col space-y-2">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                    </dd>
-                  </dl>
-                  <div className="space-y-3">
-                    <div>
-                      <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                          {title}
-                        </Link>
-                      </h2>
-                      <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      {summary}
-                    </div>
-                  </div>
-                </article>
-              </div>
-            )
-          })}
-        </div>
+    <div>
+      {/* Tags Section */}
+      <div className="mb-6 flex flex-wrap gap-4">
+        {sortedTags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => toggleTag(tag)}
+            className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+              selectedTag === tag
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+            }`}
+            aria-label={`Filter posts by ${tag}`}
+          >
+            {`${tag} (${tagCounts[tag]})`}
+          </button>
+        ))}
       </div>
-    </>
+
+      {/* Blog Posts */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredPosts.map((post) => {
+          const { path, date, title, summary, tags, images } = post
+          const postImage = Array.isArray(images) ? images[0] : images // Use first image if multiple
+
+          return (
+            <div key={path} className="relative overflow-hidden rounded-lg shadow-md">
+              {/* Post Image */}
+              <Link href={`/${path}`} aria-label={title}>
+                <div className="relative h-48 bg-gray-200">
+                  <img
+                    src={postImage || '/placeholder-image.jpg'}
+                    alt={title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  {/* Tags Displayed on Image */}
+                  <div className="absolute bottom-0 left-0 flex flex-wrap gap-2 bg-black/50 p-2">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-blue-500 px-2 py-1 text-xs font-medium text-white"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+
+              {/* Post Content */}
+              <div className="p-4">
+                <Link href={`/${path}`} aria-label={title}>
+                  <h2 className="mb-2 text-xl font-bold leading-6 text-gray-900 dark:text-gray-100">
+                    {title}
+                  </h2>
+                </Link>
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  {formatDate(date, siteMetadata.locale)}
+                </p>
+                <p className="text-gray-700 dark:text-gray-300">{summary}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
