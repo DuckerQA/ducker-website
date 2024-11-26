@@ -76,10 +76,16 @@ export default function ListLayoutWithTags({
 
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
+  // Modified toggleTag logic
   const toggleTag = (tag: string) => {
-    setSelectedTags((prevSelected) =>
-      prevSelected.includes(tag) ? prevSelected.filter((t) => t !== tag) : [...prevSelected, tag]
-    )
+    setSelectedTags((prevSelected) => {
+      // Jeśli kliknięty tag jest już wybrany, odklikaj go (pokazuje wszystkie artykuły)
+      if (prevSelected.includes(tag)) {
+        return []
+      }
+      // Jeśli kliknięto nowy tag, ustaw go jako jedyny wybrany
+      return [tag]
+    })
   }
 
   const filteredPosts =
@@ -116,44 +122,41 @@ export default function ListLayoutWithTags({
         </div>
 
         {/* Blog Posts */}
-        <div>
-          <ul>
-            {displayPosts.map((post) => {
-              const { path, date, title, summary, tags } = post
-              return (
-                <li key={path} className="py-5">
-                  <article className="flex flex-col space-y-2 xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                      </dd>
-                    </dl>
-                    <div className="space-y-3">
-                      <div>
-                        <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                          <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                            {title}
-                          </Link>
-                        </h2>
-                        <div className="flex flex-wrap">
-                          {tags.map((tag) => (
-                            <Tag key={tag} text={tag} />
-                          ))}
-                        </div>
-                      </div>
-                      <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                        {summary}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {displayPosts.map((post) => {
+            const { path, date, title, summary, tags } = post
+            return (
+              <div key={path} className="p-4 border rounded-lg shadow-md">
+                <article className="flex flex-col space-y-2">
+                  <dl>
+                    <dt className="sr-only">Published on</dt>
+                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
+                    </dd>
+                  </dl>
+                  <div className="space-y-3">
+                    <div>
+                      <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                        <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
+                          {title}
+                        </Link>
+                      </h2>
+                      <div className="flex flex-wrap">
+                        {tags.map((tag) => (
+                          <Tag key={tag} text={tag} />
+                        ))}
                       </div>
                     </div>
-                  </article>
-                </li>
-              )
-            })}
-          </ul>
+                    <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                      {summary}
+                    </div>
+                  </div>
+                </article>
+              </div>
+            )
+          })}
         </div>
       </div>
     </>
   )
 }
-
