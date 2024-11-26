@@ -1,13 +1,16 @@
 import { writeFileSync, mkdirSync } from 'fs'
-import path from 'path'
 import { slug } from 'github-slugger'
 import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
-import tagData from '../app/tag-data.json' assert { type: 'json' }
+import fs from 'fs'
+import path from 'path'
 import { allBlogs } from '../.contentlayer/generated/index.mjs'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
 
 const outputFolder = process.env.EXPORT ? 'out' : 'public'
+
+const tagDataPath = path.resolve(process.cwd(), 'app', 'tag-data.json')
+const tagData = JSON.parse(fs.readFileSync(tagDataPath, 'utf8'))
 
 const generateRssItem = (config, post) => `
   <item>
