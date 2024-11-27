@@ -1,9 +1,9 @@
 import Link from './Link'
 
-const Card = ({ title, description, href }) => (
+const Card = ({ title, description, href, technologyIcons }) => (
   <div className="w-full sm:w-1/2 p-4">
-    <div className="h-full overflow-hidden rounded-md border-2 border-solid border-gray-200 bg-transparent transition duration-500 hover:scale-105 hover:border-primary-500 hover:bg-gray-300 dark:border-gray-700 dark:hover:border-primary-500 dark:hover:bg-gray-800">
-      <div className="p-6">
+    <div className="h-full flex flex-col overflow-hidden rounded-md border-2 border-solid border-gray-200 bg-transparent transition duration-500 hover:scale-105 hover:border-primary-500 hover:bg-gray-300 dark:border-gray-700 dark:hover:border-primary-500 dark:hover:bg-gray-800">
+      <div className="p-6 flex flex-col flex-grow">
         {/* Icons Section */}
         <div className="flex items-center justify-between mb-4">
           {/* Folder Icon */}
@@ -16,7 +16,7 @@ const Card = ({ title, description, href }) => (
           >
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
           </svg>
-          {/* External Links */}
+          {/* External Link */}
           {href && (
             <a
               href={href}
@@ -37,8 +37,24 @@ const Card = ({ title, description, href }) => (
           )}
         </div>
         {/* Content Section */}
-        <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">{title}</h2>
-        <p className="prose text-gray-500 dark:text-gray-400">{description}</p>
+        <div className="flex-grow">
+          <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">{title}</h2>
+          <p className="prose text-gray-500 dark:text-gray-400">{description}</p>
+        </div>
+        {/* Technology Icons */}
+        {technologyIcons && (
+          <div className="mt-4 flex space-x-3">
+            {technologyIcons.map((icon, index) => (
+              <img
+                key={index}
+                src={icon}
+                alt="Technology Icon"
+                className="h-8 w-8"
+                title="Technology"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   </div>
