@@ -35,6 +35,11 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
   return (
     <div>
+      {/* Page Header */}
+      <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl sm:leading-tight md:text-6xl md:leading-tight mb-8">
+        Blog
+      </h1>
+
       {/* Tags Section */}
       <div className="mb-6 flex flex-wrap gap-4">
         {sortedTags.map((tag) => (
