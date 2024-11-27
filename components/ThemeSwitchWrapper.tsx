@@ -33,10 +33,14 @@ const ThemeSwitchWrapper = () => {
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // Ensure theme is loaded before rendering to avoid hydration mismatch
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    // Używamy pustego elementu zamiast `null`, aby unikać błędów hydratacji.
+    return <div className="h-8 w-8" />
+  }
 
   return (
     <button
