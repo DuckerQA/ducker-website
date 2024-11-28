@@ -15,7 +15,11 @@ const Header = () => {
   return (
     <header className={headerClass}>
       {/* Logo and Title */}
-      <Link href="/" aria-label={siteMetadata.headerTitle} className="flex items-center">
+      <Link
+        href="/"
+        aria-label={siteMetadata.headerTitle}
+        className="flex items-center rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
+      >
         <div className="flex items-center justify-between">
           <div className="mr-3">
             <Logo />

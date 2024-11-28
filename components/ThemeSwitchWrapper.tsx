@@ -38,7 +38,7 @@ const ThemeSwitchWrapper = () => {
   }, [])
 
   if (!mounted) {
-    // Używamy pustego elementu zamiast `null`, aby unikać błędów hydratacji.
+    // Render a placeholder to avoid hydration issues
     return <div className="h-8 w-8" />
   }
 
@@ -46,7 +46,7 @@ const ThemeSwitchWrapper = () => {
     <button
       aria-label="Toggle Dark Mode"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="flex items-center justify-center rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+      className="flex items-center justify-center rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
     >
       {resolvedTheme === 'dark' ? <LightThemeIcon /> : <DarkThemeIcon />}
     </button>
