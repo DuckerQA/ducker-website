@@ -60,11 +60,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         {/* Skip to Content Button */}
         <a
-  href="#main"
-  className="absolute left-2 top-2 z-50 -translate-y-full rounded bg-gray-800 px-4 py-2 text-white opacity-0 focus:translate-y-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
->
-  Skip to Content
-</a>
+          href="#main"
+          className="absolute left-2 top-2 z-50 -translate-y-full rounded bg-gray-800 px-4 py-2 text-white opacity-0 focus:translate-y-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Skip to Content
+        </a>
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
