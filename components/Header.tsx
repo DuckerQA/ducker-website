@@ -14,7 +14,8 @@ const Header = () => {
 
   return (
     <header className={headerClass}>
-      <Link href="/" aria-label={siteMetadata.headerTitle}>
+      {/* Logo and Title */}
+      <Link href="/" aria-label={siteMetadata.headerTitle} className="flex items-center">
         <div className="flex items-center justify-between">
           <div className="mr-3">
             <Logo />
@@ -28,24 +29,29 @@ const Header = () => {
           )}
         </div>
       </Link>
-      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
+
+      {/* Navigation Section */}
+      <nav className="flex items-center space-x-4 leading-5 sm:space-x-6">
+        {/* Desktop Navigation Links */}
+        <div className="no-scrollbar hidden items-center space-x-4 sm:flex sm:space-x-6">
           {headerNavLinks
             .filter((link) => link.href !== '/')
             .map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                className="block font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 rounded-md dark:focus:ring-offset-gray-950 dark:text-gray-100 dark:hover:text-primary-400"
               >
                 {link.title}
               </Link>
             ))}
         </div>
+
+        {/* Additional Buttons */}
         <SearchButton />
         <ThemeSwitchWrapper />
         <MobileNav />
-      </div>
+      </nav>
     </header>
   )
 }
