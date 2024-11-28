@@ -1,0 +1,46 @@
+---
+title: '3D View Tool'
+date: 2024-11-22
+tags: ['DevTools']
+draft: false
+summary: 'Explore how the 3D View in Edge DevTools enhances QA by visualizing overlaps and optimizing performance.'
+images: ['/static/images/articles-media/duckerOk.png']
+---
+
+# 3D View Tool Microsoft Edge
+
+Think of the 3D View as putting on X-ray glasses for your web page. 🕶️ It lets you see your site as a stack of layers, with each element popping out in 3D space. Suddenly, those z-index headaches and invisible overlaps become crystal clear.
+
+It’s like peeling back the layers of an onion, giving you a totally new way of debugging pages to spot bugs that the usual DOM or CSS inspector can’t catch.
+
+![An overview of the 3D View tool in Microsoft Edge DevTools showing layers in a web page](/static/images/articles-media/3dview.webp)
+
+## But how can this be useful to a tester?
+
+1. Visualize Overlaps Instantly 🖥️
+   The 3D View makes overlapping elements and z-index conflicts easy to spot. Instead of sifting through CSS rules or guessing why one element obscures another, you can see exactly how layers are stacked.
+   Example: Imagine debugging a dropdown menu that doesn’t appear properly. Using the 3D View, you can immediately see if a higher z-index is blocking it.
+
+2. Improve Communication with Developers 🎯
+   As much as I enjoy teasing developers (in a friendly way, of course! 😄), a well-explained bug report makes the difference. Instead of writing long-winded descriptions, you can use screenshots or live demos of the 3D View to clearly show the root cause of the issue.
+
+3. Improve your automated testing 🤖
+   Automation testing tools like Playwright or Selenium often focus on visible elements, but hidden issues — like incorrect z-index values ​​— can still cause problems in production (oh, overlapping elements that aren’t always visible are awful). The 3D view helps catch these hidden errors early, so your tests don’t end up being flaky.
+   Tip: Use this tool to check for scenarios where CSS visibility or stacking order could break automated flows, such as in modals, popups, or multi-layered UI components.
+
+4. Prevent Performance Bottlenecks 🚀
+   One of the hidden gems of the 3D View is its ability to reveal elements rendered outside the visible viewport. These “invisible” elements still consume browser resources and can degrade performance. By identifying and removing unnecessary off-screen elements, you can:
+   • Reduce rendering overhead.
+   • Improve page load times and responsiveness.
+   Example: A parallax effect might render layers unnecessarily large or outside the viewport. Using the 3D View, you can fine-tune these elements to boost performance without compromising design.
+
+## How to Access the 3D View in Microsoft Edge?
+
+Getting started with the 3D View is simple:
+
+1. Open Microsoft Edge and load your web application.
+2. Press F12 to open DevTools.
+3. Navigate to the 3D View tab in the left-hand menu (or enable it under DevTools settings if it’s not visible).
+4. Explore your page’s layers in real time!
+
+Learn more:" 3D View in Edge DevTools https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/3d-view/

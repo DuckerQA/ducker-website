@@ -1,0 +1,82 @@
+---
+title: 'Accessibility Tree'
+date: 2024-11-23
+tags: ['DevTools', 'Accessibility']
+draft: false
+summary: 'Enhance QA with Chrome’s Accessibility Tree: spot missing labels, audit focus order, and optimize accessibility.'
+images: ['/static/images/articles-media/duckerSearch.png']
+---
+
+# Accessibility Tree in DevTools
+
+The Accessibility Tree is a powerful feature in modern browser DevTools, enabling testers to understand how assistive technologies like screen readers interpret a web page. It helps identify issues such as missing labels, improper focus order, and hidden elements, allowing you to improve your web application’s accessibility.
+
+<iframe
+  width="100%"
+  height="315"
+  src="https://www.youtube.com/embed/Th-nv-SCj4Q"
+  frameBorder="0"
+  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+---
+
+## Why Use the Accessibility Tree?
+
+The Accessibility Tree simulates how assistive technologies “see” your web page. Incorporating it into your workflow allows you to:
+
+- Detect missing or incorrect labels.
+- Verify logical focus order.
+- Ensure hidden or off-screen elements are correctly managed.
+
+---
+
+## Accessibility Tree in Chrome
+
+### Steps to Use:
+
+1. **Open Chrome DevTools**:
+   - Right-click on the page and select **Inspect** or press `F12`.
+2. **Navigate to the Accessibility Tab**:
+   - Select an element in the **Elements** panel, then open the **Accessibility** tab in the right-hand panel.
+3. **Inspect the Accessibility Tree**:
+   - Review the role, name, properties, and other attributes of the selected element.
+
+![Chrome DevTools Accessibility Tree screenshot.](/static/images/articles-media/accessibilityTreeChrome.png)
+
+---
+
+## Accessibility Tree in Firefox
+
+Firefox offers a robust Accessibility Tree similar to Chrome’s.
+
+### Steps to Use:
+
+1. **Open Firefox DevTools**:
+   - Right-click on the page and select **Inspect** or press `Ctrl + Shift + I`.
+2. **Switch to the Accessibility Panel**:
+   - Enable it in **Settings > Developer Tools > Accessibility Panel** if not visible.
+3. **Activate Accessibility Features**:
+   - Enable the features when prompted.
+4. **Explore the Accessibility Tree**:
+   - Review the hierarchical representation of accessible elements, including roles, labels, and properties.
+
+![Firefox Accessibility Tree screenshot.](/static/images/articles-media/firefoxAccessibilityTree.png)
+
+---
+
+## Learn More
+
+- [Chrome DevTools Accessibility Overview](https://developer.chrome.com/docs/devtools/accessibility/reference)
+- [Firefox Accessibility Tools](https://firefox-source-docs.mozilla.org/devtools-user/accessibility_inspector/)
+- [Web Accessibility Initiative (WAI-ARIA)](https://www.w3.org/TR/wai-aria/)
+
+---
+
+## Conclusion
+
+Leveraging Accessibility Trees in Chrome and Firefox empowers QA teams to create a seamless, inclusive web experience for all users. Integrating this tool into your workflow ensures a better user experience and higher compliance with accessibility standards.
+
+---
+
+By using these insights, you can enhance QA processes and deliver web applications that are accessible and inclusive for everyone. 🌍
