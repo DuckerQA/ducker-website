@@ -1,14 +1,17 @@
 'use client'
 
 import { Transition } from '@headlessui/react'
+import FocusLock from 'react-focus-lock'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import { Fragment, useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
   const navRef = useRef<HTMLDivElement | null>(null)
+  const pathname = usePathname()
 
   const onToggleNav = () => {
     setNavShow((status) => {
@@ -34,12 +37,16 @@ const MobileNav = () => {
   return (
     <>
       {/* Toggle Button */}
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+      <button
+        aria-label="Toggle Menu"
+        onClick={onToggleNav}
+        className="rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950 sm:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+          className="h-8 w-8"
         >
           <path
             fillRule="evenodd"
@@ -54,50 +61,62 @@ const MobileNav = () => {
         show={navShow}
         as={Fragment}
         enter="transition ease-in-out duration-300 transform"
-        enterFrom="translate-x-full opacity-0"
-        enterTo="translate-x-0 opacity-100"
+        enterFrom="translate-x-full"
+        enterTo="translate-x-0"
         leave="transition ease-in-out duration-300 transform"
-        leaveFrom="translate-x-0 opacity-100"
-        leaveTo="translate-x-full opacity-0"
+        leaveFrom="translate-x-0"
+        leaveTo="translate-x-full"
       >
-        <div
-          ref={navRef}
-          className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-gray-950"
-        >
-          <div className="absolute inset-0 bg-black/25" onClick={onToggleNav}></div>
+        <div className="fixed inset-0 z-50 bg-black/25">
+          {/* FocusLock Wrapping */}
+          <FocusLock disabled={!navShow}>
+            <div
+              ref={navRef}
+              className="absolute right-0 top-0 z-50 h-full w-full bg-white shadow-lg dark:bg-gray-950"
+            >
+              <nav className="relative mx-auto mt-14 w-11/12">
+                {headerNavLinks.map((link) => {
+                  const isActive =
+                    link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
 
-          <nav className="relative mt-8 px-8">
-            {headerNavLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="mb-4 block text-lg font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                  return (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className={`mb-4 block rounded-md text-lg font-medium ${
+                        isActive
+                          ? 'text-primary-500 dark:text-primary-400'
+                          : 'text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400'
+                      } focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950`}
+                      onClick={onToggleNav}
+                    >
+                      {link.title}
+                    </Link>
+                  )
+                })}
+              </nav>
+
+              {/* Close Button */}
+              <button
+                className="absolute right-4 top-4 rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
+                aria-label="Close Menu"
                 onClick={onToggleNav}
               >
-                {link.title}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Close Button */}
-          <button
-            className="absolute top-4 right-4"
-            aria-label="Close Menu"
-            onClick={onToggleNav}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="h-8 w-8 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-8 w-8"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </FocusLock>
         </div>
       </Transition>
     </>

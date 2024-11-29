@@ -10,7 +10,6 @@ import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 import Image from 'next/image'
 
-
 interface ListLayoutProps {
   posts: CoreContent<Blog>[]
   title: string

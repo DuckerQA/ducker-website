@@ -1,3 +1,6 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
@@ -7,6 +10,7 @@ import ThemeSwitchWrapper from './ThemeSwitchWrapper'
 import SearchButton from './SearchButton'
 
 const Header = () => {
+  const pathname = usePathname()
   let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
@@ -40,15 +44,23 @@ const Header = () => {
         <div className="no-scrollbar hidden items-center space-x-4 sm:flex sm:space-x-6">
           {headerNavLinks
             .filter((link) => link.href !== '/')
-            .map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="block rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
-              >
-                {link.title}
-              </Link>
-            ))}
+            .map((link) => {
+              const isActive = pathname.startsWith(link.href)
+
+              return (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className={`block rounded-md font-medium ${
+                    isActive
+                      ? 'text-primary-500 dark:text-primary-400'
+                      : 'text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400'
+                  } focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950`}
+                >
+                  {link.title}
+                </Link>
+              )
+            })}
         </div>
 
         {/* Additional Buttons */}
