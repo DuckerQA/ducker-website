@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-      <title>{siteMetadata.title || 'Blog | DuckerQA'}</title>
+        <title>{siteMetadata.title || 'Blog | DuckerQA'}</title>
         <link
           rel="apple-touch-icon"
           sizes="76x76"
