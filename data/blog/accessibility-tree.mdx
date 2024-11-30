@@ -1,13 +1,11 @@
 ---
-title: 'Accessibility Tree'
+title: 'Accessibility Tree in DevTools'
 date: 2024-11-23
 tags: ['DevTools', 'Accessibility']
 draft: false
 summary: 'Enhance QA with Chrome’s Accessibility Tree: spot missing labels, audit focus order, and optimize accessibility.'
 images: ['/static/images/articles-media/duckerSearch.png']
 ---
-
-# Accessibility Tree in DevTools
 
 The Accessibility Tree is a powerful feature in modern browser DevTools, enabling testers to understand how assistive technologies like screen readers interpret a web page. It helps identify issues such as missing labels, improper focus order, and hidden elements, allowing you to improve your web application’s accessibility.
 
@@ -18,6 +16,9 @@ The Accessibility Tree is a powerful feature in modern browser DevTools, enablin
   frameBorder="0"
   allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
+  title="YouTube video: Example of Accessibility in Web Design"
+  aria-label="YouTube video player showcasing an example of accessibility in web design, including tips for implementing accessible elements."
+  tabIndex="0"
 ></iframe>
 ---
 
@@ -42,7 +43,7 @@ The Accessibility Tree simulates how assistive technologies “see” your web p
 3. **Inspect the Accessibility Tree**:
    - Review the role, name, properties, and other attributes of the selected element.
 
-![Chrome DevTools Accessibility Tree screenshot.](/static/images/articles-media/accessibilityTreeChrome.png)
+![Chrome DevTools Accessibility Tree screenshot.](/static/images/articles-media/chrome-accessibility-tree.png)
 
 ---
 
@@ -61,7 +62,7 @@ Firefox offers a robust Accessibility Tree similar to Chrome’s.
 4. **Explore the Accessibility Tree**:
    - Review the hierarchical representation of accessible elements, including roles, labels, and properties.
 
-![Firefox Accessibility Tree screenshot.](/static/images/articles-media/firefoxAccessibilityTree.png)
+![Firefox Accessibility Tree screenshot.](/static/images/articles-media/firefox-accessibility-tree.png)
 
 ---
 
