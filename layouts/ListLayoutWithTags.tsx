@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 import Image from 'next/image'
+import { formatDate } from 'pliny/utils/formatDate' // Ensure you have this utility
 
 interface ListLayoutProps {
   posts: CoreContent<Blog>[]
@@ -21,8 +21,11 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
   const router = useRouter()
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false)
 
+  // Ensure consistent hydration
   useEffect(() => {
+    setIsClient(true)
     const params = new URLSearchParams(window.location.search)
     const tagParam = params.get('tag')
     setSelectedTag(tagParam || null)
@@ -42,37 +45,44 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
   return (
     <div>
+      {/* Page Title */}
       <h1 className="mb-8 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
         {title}
       </h1>
+
+      {/* Tags Section */}
       <div className="mb-6 flex flex-wrap gap-4">
-        {sortedTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => toggleTag(tag)}
-            className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-              selectedTag === tag
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-            }`}
-            aria-label={`Filter blog posts by tag: ${tag}`} // Accessible name matches visible text
-          >
-            {`${tag} (${tagCounts[tag]})`}
-          </button>
-        ))}
+        {isClient &&
+          sortedTags.map((tag) => (
+            <div key={tag} suppressHydrationWarning>
+              <button
+                onClick={() => toggleTag(tag)}
+                className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+                  selectedTag === tag
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                }`}
+                aria-label={`Filter blog posts by tag: ${tag}`}
+              >
+                {`${tag} (${tagCounts[tag]})`}
+              </button>
+            </div>
+          ))}
       </div>
+
+      {/* Posts Section */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPosts.map((post) => {
           const { path, date, title, summary, tags, images } = post
           const postImage = Array.isArray(images) ? images[0] : images
+
           return (
             <div key={path} className="relative overflow-hidden rounded-lg shadow-md">
-              {/* The title serves as the accessible name */}
               <Link href={`/${path}`} aria-label={title}>
                 <div className="relative h-48 bg-gray-200">
                   <Image
                     src={postImage || '/placeholder-image.jpg'}
-                    alt={`Image for ${title}`} // Meaningful alt text
+                    alt={`Image for ${title}`}
                     fill
                     className="object-cover"
                   />
@@ -94,6 +104,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                     {title}
                   </h2>
                 </Link>
+                {/* Updated date formatting */}
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                   {formatDate(date, siteMetadata.locale)}
                 </p>
