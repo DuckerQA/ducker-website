@@ -55,6 +55,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
             }`}
+            aria-label={`Filter blog posts by tag: ${tag}`} // Accessible name matches visible text
           >
             {`${tag} (${tagCounts[tag]})`}
           </button>
@@ -66,11 +67,12 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
           const postImage = Array.isArray(images) ? images[0] : images
           return (
             <div key={path} className="relative overflow-hidden rounded-lg shadow-md">
+              {/* The title serves as the accessible name */}
               <Link href={`/${path}`} aria-label={title}>
                 <div className="relative h-48 bg-gray-200">
                   <Image
                     src={postImage || '/placeholder-image.jpg'}
-                    alt={title}
+                    alt={`Image for ${title}`} // Meaningful alt text
                     fill
                     className="object-cover"
                   />

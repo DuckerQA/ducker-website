@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         {/* Skip to Content Button */}
         <a
-          href="#main"
+          href="#main-content"
           className="absolute left-2 top-2 z-50 -translate-y-full rounded bg-gray-800 px-4 py-2 text-white opacity-0 focus:translate-y-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Skip to Content
@@ -70,12 +70,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-              <Header />
-              <main id="main" className="mb-auto">
+              {/* Header Landmark */}
+              <header>
+                <Header />
+              </header>
+              {/* Main Landmark */}
+              <main id="main-content" role="main" className="mb-auto">
                 {children}
               </main>
+              {/* Footer Landmark */}
+              <footer>
+                <Footer />
+              </footer>
             </SearchProvider>
-            <Footer />
           </SectionContainer>
         </ThemeProviders>
       </body>
