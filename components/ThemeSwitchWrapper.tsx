@@ -1,56 +1,179 @@
-'use client'
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+const LightDarkSwitcher = () => {
+  const { setTheme, resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
-const LightThemeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    className="h-6 w-6"
-  >
-    <path
-      fillRule="evenodd"
-      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-      clipRule="evenodd"
-    />
-  </svg>
-)
+  const duration = 0.7;
 
-const DarkThemeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    className="h-6 w-6"
-  >
-    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-  </svg>
-)
+  const moonVariants = {
+    checked: { scale: 1 },
+    unchecked: { scale: 0 },
+  };
 
-const ThemeSwitchWrapper = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const sunVariants = {
+    checked: { scale: 0 },
+    unchecked: { scale: 1 },
+  };
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    // Render a placeholder to avoid hydration issues
-    return <div className="h-8 w-8" />
-  }
+  const scaleMoon = useMotionValue(isDark ? 1 : 0);
+  const scaleSun = useMotionValue(isDark ? 0 : 1);
+  const pathLengthMoon = useTransform(scaleMoon, [0.6, 1], [0, 1]);
+  const pathLengthSun = useTransform(scaleSun, [0.6, 1], [0, 1]);
 
   return (
-    <button
+    <motion.button
       aria-label="Toggle Dark Mode"
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="flex items-center justify-center rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className="flex items-center justify-center rounded-md p-2"
+      initial={false}
+      animate={isDark ? 'checked' : 'unchecked'}
+      transition={{ duration }}
     >
-      {resolvedTheme === 'dark' ? <LightThemeIcon /> : <DarkThemeIcon />}
-    </button>
-  )
-}
+      <motion.svg
+        width="28"
+        height="28"
+        viewBox="0 0 25 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Sun Core */}
+        <motion.path
+          d="M12.4058 17.7625C15.1672 17.7625 17.4058 15.5239 17.4058 12.7625C17.4058 10.0011 15.1672 7.76251 12.4058 7.76251C9.64434 7.76251 7.40576 10.0011 7.40576 12.7625C7.40576 15.5239 9.64434 17.7625 12.4058 17.7625Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        {/* Sun Rays */}
+        <motion.path
+          d="M12.4058 1.76251V3.76251"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M12.4058 21.7625V23.7625"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M4.62598 4.98248L6.04598 6.40248"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M18.7656 18.7656L20.1856 20.1856"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M1.40576 12.7625H3.40576"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M21.4058 12.7625H23.4058"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M6.04598 19.1225L4.62598 20.5425"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        <motion.path
+          d="M20.1856 4.98248L18.7656 6.40248"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthSun,
+            scale: scaleSun,
+          }}
+          variants={sunVariants}
+          transition={{ duration }}
+        />
+        {/* Moon */}
+        <motion.path
+          d="M21.1918 13.2013C21.0345 14.9035 20.3957 16.5257 19.35 17.8781C18.3044 19.2305 16.8953 20.2571 15.2875 20.8379C13.6797 21.4186 11.9398 21.5294 10.2713 21.1574C8.60281 20.7854 7.07479 19.9459 5.86602 18.7371C4.65725 17.5283 3.81774 16.0003 3.4457 14.3318C3.07367 12.6633 3.18451 10.9234 3.76526 9.31561C4.346 7.70783 5.37263 6.29868 6.72501 5.25307C8.07739 4.20746 9.69959 3.56862 11.4018 3.41132C10.4052 4.75958 9.92564 6.42077 10.0503 8.09273C10.175 9.76469 10.8957 11.3364 12.0812 12.5219C13.2667 13.7075 14.8384 14.4281 16.5104 14.5528C18.1823 14.6775 19.8435 14.1979 21.1918 13.2013Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            pathLength: pathLengthMoon,
+            scale: scaleMoon,
+          }}
+          variants={moonVariants}
+          transition={{ duration }}
+        />
+      </motion.svg>
+    </motion.button>
+  );
+};
 
-export default ThemeSwitchWrapper
+export default LightDarkSwitcher;
