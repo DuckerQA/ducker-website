@@ -19,6 +19,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const tagCounts = tagData as Record<string, number>
   const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
+  const totalPostsCount = posts.length // Total count for "All" tag
   const router = useRouter()
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
@@ -31,10 +32,9 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
     setSelectedTag(tagParam || null)
   }, [])
 
-  const toggleTag = (tag: string) => {
-    const newTag = selectedTag === tag ? null : tag
-    setSelectedTag(newTag)
-    router.push(`/blog${newTag ? `?tag=${newTag}` : ''}`)
+  const toggleTag = (tag: string | null) => {
+    setSelectedTag(tag)
+    router.push(`/blog${tag ? `?tag=${tag}` : ''}`)
   }
 
   const filteredPosts = selectedTag
@@ -52,22 +52,41 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
       {/* Tags Section */}
       <div className="mb-6 flex flex-wrap gap-4">
-        {isClient &&
-          sortedTags.map((tag) => (
-            <div key={tag} suppressHydrationWarning>
+        {isClient && (
+          <>
+            {/* "All" Tag */}
+            <div suppressHydrationWarning>
               <button
-                onClick={() => toggleTag(tag)}
+                onClick={() => toggleTag(null)}
                 className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-                  selectedTag === tag
+                  selectedTag === null
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                 }`}
-                aria-label={`Filter blog posts by tag: ${tag}`}
+                aria-label="Show all blog posts"
               >
-                {`${tag} (${tagCounts[tag]})`}
+                All ({totalPostsCount})
               </button>
             </div>
-          ))}
+
+            {/* Other Tags */}
+            {sortedTags.map((tag) => (
+              <div key={tag} suppressHydrationWarning>
+                <button
+                  onClick={() => toggleTag(tag)}
+                  className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+                    selectedTag === tag
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                  }`}
+                  aria-label={`Filter blog posts by tag: ${tag}`}
+                >
+                  {`${tag} (${tagCounts[tag]})`}
+                </button>
+              </div>
+            ))}
+          </>
+        )}
       </div>
 
       {/* Posts Section */}
@@ -104,7 +123,6 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                     {title}
                   </h2>
                 </Link>
-                {/* Updated date formatting */}
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                   {formatDate(date, siteMetadata.locale)}
                 </p>

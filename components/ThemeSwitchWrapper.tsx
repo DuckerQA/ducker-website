@@ -1,9 +1,17 @@
+'use client'
+
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 const LightDarkSwitcher = () => {
   const { setTheme, resolvedTheme } = useTheme()
+  const [isMounted, setIsMounted] = useState(false) // Ensure consistent hydration
   const isDark = resolvedTheme === 'dark'
+
+  useEffect(() => {
+    setIsMounted(true) // Mark as mounted after hydration
+  }, [])
 
   const duration = 0.7
 
@@ -21,6 +29,11 @@ const LightDarkSwitcher = () => {
   const scaleSun = useMotionValue(isDark ? 0 : 1)
   const pathLengthMoon = useTransform(scaleMoon, [0.6, 1], [0, 1])
   const pathLengthSun = useTransform(scaleSun, [0.6, 1], [0, 1])
+
+  if (!isMounted) {
+    // Render nothing on the server to avoid hydration mismatch
+    return <div className="h-8 w-8" aria-hidden="true"></div>
+  }
 
   return (
     <motion.button
