@@ -64,7 +64,9 @@ const Header = () => {
         </div>
 
         {/* Additional Buttons */}
-        <div className="flex items-center space-x-2"> {/* Adjusted gap */}
+        <div className="flex items-center space-x-2">
+          {' '}
+          {/* Adjusted gap */}
           <SearchButton />
           <ThemeSwitchWrapper />
         </div>

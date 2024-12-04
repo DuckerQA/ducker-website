@@ -19,21 +19,18 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const tagCounts = tagData as Record<string, number>
   const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
-  const totalPostsCount = posts.length // Total count for "All" tag
+  const totalPostsCount = posts.length
   const router = useRouter()
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
-  const [isClient, setIsClient] = useState(false)
 
-  // Ensure consistent hydration
   useEffect(() => {
-    setIsClient(true)
+    // This ensures the code only executes client-side
     const params = new URLSearchParams(window.location.search)
     const tagParam = params.get('tag')
     setSelectedTag(tagParam || null)
   }, [])
 
   const toggleTag = (tag: string | null) => {
-    // If the same tag is clicked again, reset to "All"
     const newTag = selectedTag === tag ? null : tag
     setSelectedTag(newTag)
     router.push(`/blog${newTag ? `?tag=${newTag}` : ''}`)
@@ -46,53 +43,64 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
     : posts
 
   return (
-    <div>
+    <div suppressHydrationWarning>
+      {/* Spacing Above Title */}
+      <div className="h-[48px]" aria-hidden="true" />
+
       {/* Page Title */}
-      <h1 className="mb-8 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
+      <h1 className="mb-2 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
         {title}
       </h1>
 
-      {/* Tags Section */}
-      <div className="mb-6 flex flex-wrap gap-4">
-        {isClient && (
-          <>
-            {/* "All" Tag */}
-            <div suppressHydrationWarning>
-              <button
-                onClick={() => toggleTag(null)}
-                className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-                  selectedTag === null
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                }`}
-                aria-label="Show all blog posts"
-              >
-                All ({totalPostsCount})
-              </button>
-            </div>
-
-            {/* Other Tags */}
-            {sortedTags.map((tag) => (
-              <div key={tag} suppressHydrationWarning>
-                <button
-                  onClick={() => toggleTag(tag)}
-                  className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-                    selectedTag === tag
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                  }`}
-                  aria-label={`Filter blog posts by tag: ${tag}`}
-                >
-                  {`${tag} (${tagCounts[tag]})`}
-                </button>
-              </div>
-            ))}
-          </>
-        )}
+      {/* Blog Description */}
+      <div className="mb-8 text-lg text-gray-700 dark:text-gray-300">
+        <p className="w-full sm:max-w-full lg:max-w-[60%]">
+          Yo! 🦆 and welcome to my testing lair – where bugs don’t stand a chance! Grab a seat,
+          explore some tips, laugh at my QA struggles, and maybe even learn something useful. Make
+          yourself at home!
+        </p>
       </div>
 
+      {/* Tags Section */}
+      <div className="flex flex-wrap gap-4">
+        {/* "All" Tag */}
+        <div>
+          <button
+            onClick={() => toggleTag(null)}
+            className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+              selectedTag === null
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+            }`}
+            aria-label="Show all blog posts"
+          >
+            All ({totalPostsCount})
+          </button>
+        </div>
+
+        {/* Other Tags */}
+        {sortedTags.map((tag) => (
+          <div key={tag}>
+            <button
+              onClick={() => toggleTag(tag)}
+              className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+                selectedTag === tag
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+              }`}
+              aria-label={`Filter blog posts by tag: ${tag}`}
+            >
+              {`${tag} (${tagCounts[tag]})`}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Line Directly Below Tags */}
+      <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 mt-4" aria-hidden="true"></div>
+
       {/* Posts Section */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPosts.map((post) => {
           const { path, date, title, summary, tags, images } = post
           const postImage = Array.isArray(images) ? images[0] : images

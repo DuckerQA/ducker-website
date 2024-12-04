@@ -2,17 +2,12 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const LightDarkSwitcher = () => {
   const { setTheme, resolvedTheme } = useTheme()
-  const [isMounted, setIsMounted] = useState(false) // Ensure consistent hydration
   const isDark = resolvedTheme === 'dark'
-  const [showTooltip, setShowTooltip] = useState(false) // For tooltip visibility
-
-  useEffect(() => {
-    setIsMounted(true) // Mark as mounted after hydration
-  }, [])
+  const [showTooltip, setShowTooltip] = useState(false)
 
   const duration = 0.7
 
@@ -31,35 +26,26 @@ const LightDarkSwitcher = () => {
   const pathLengthMoon = useTransform(scaleMoon, [0.6, 1], [0, 1])
   const pathLengthSun = useTransform(scaleSun, [0.6, 1], [0, 1])
 
-  if (!isMounted) {
-    // Render nothing on the server to avoid hydration mismatch
-    return null
-  }
-
   return (
     <div
       className="relative flex items-center justify-center"
-      onMouseEnter={() => setTimeout(() => setShowTooltip(true), 150)} // Show tooltip with slight delay
-      onMouseLeave={() => setShowTooltip(false)} // Hide tooltip immediately
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
     >
-      {/* Tooltip */}
       {showTooltip && (
-        <div
-          className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md whitespace-nowrap"
-        >
+        <div className="absolute top-full mt-2 transform whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md">
           {isDark ? 'Activate light mode' : 'Activate dark mode'}
         </div>
       )}
 
-<motion.button
-  aria-label="Toggle Dark Mode"
-  onClick={() => setTheme(isDark ? 'light' : 'dark')}
-  className="flex items-center justify-center rounded-lg border border-gray-300 p-1.5 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(66,153,225,0.5)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-  initial={false}
-  animate={isDark ? 'checked' : 'unchecked'}
-  transition={{ duration }}
->
-
+      <motion.button
+        aria-label="Toggle Dark Mode"
+        onClick={() => setTheme(isDark ? 'light' : 'dark')}
+        className="flex items-center justify-center rounded-lg border border-gray-300 p-1.5 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(66,153,225,0.5)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        initial={false}
+        animate={isDark ? 'checked' : 'unchecked'}
+        transition={{ duration }}
+      >
         <motion.svg
           width="24"
           height="24"

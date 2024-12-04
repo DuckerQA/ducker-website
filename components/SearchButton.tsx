@@ -23,9 +23,7 @@ const SearchButton = () => {
       >
         {/* Tooltip */}
         {isHovered && (
-          <div
-            className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md whitespace-nowrap"
-          >
+          <div className="absolute top-full mt-2 transform whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md">
             Search the site
           </div>
         )}
