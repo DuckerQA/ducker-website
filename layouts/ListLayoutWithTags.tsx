@@ -97,7 +97,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
       </div>
 
       {/* Line Directly Below Tags */}
-      <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 mt-4" aria-hidden="true"></div>
+      <div className="mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
 
       {/* Posts Section */}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
