@@ -52,9 +52,7 @@ const Header = () => {
         </Link>
         {/* Tooltip */}
         {showTooltip && (
-          <div
-            className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md whitespace-nowrap sm:hidden md:block"
-          >
+          <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md sm:hidden md:block">
             Go to Home
           </div>
         )}
