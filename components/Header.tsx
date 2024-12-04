@@ -64,8 +64,10 @@ const Header = () => {
         </div>
 
         {/* Additional Buttons */}
-        <SearchButton />
-        <ThemeSwitchWrapper />
+        <div className="flex items-center space-x-2"> {/* Adjusted gap */}
+          <SearchButton />
+          <ThemeSwitchWrapper />
+        </div>
         <MobileNav />
       </nav>
     </header>

@@ -51,14 +51,15 @@ const LightDarkSwitcher = () => {
         </div>
       )}
 
-      <motion.button
-        aria-label="Toggle Dark Mode"
-        onClick={() => setTheme(isDark ? 'light' : 'dark')}
-        className="flex items-center justify-center rounded-full border border-gray-300 p-2 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(66,153,225,0.5)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        initial={false}
-        animate={isDark ? 'checked' : 'unchecked'}
-        transition={{ duration }}
-      >
+<motion.button
+  aria-label="Toggle Dark Mode"
+  onClick={() => setTheme(isDark ? 'light' : 'dark')}
+  className="flex items-center justify-center rounded-lg border border-gray-300 p-1.5 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(66,153,225,0.5)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+  initial={false}
+  animate={isDark ? 'checked' : 'unchecked'}
+  transition={{ duration }}
+>
+
         <motion.svg
           width="24"
           height="24"

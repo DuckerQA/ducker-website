@@ -1,8 +1,13 @@
+'use client'
+
 import { AlgoliaButton } from 'pliny/search/AlgoliaButton'
 import { KBarButton } from 'pliny/search/KBarButton'
 import siteMetadata from '@/data/siteMetadata'
+import { useState } from 'react'
 
 const SearchButton = () => {
+  const [isHovered, setIsHovered] = useState(false)
+
   if (
     siteMetadata.search &&
     (siteMetadata.search.provider === 'algolia' || siteMetadata.search.provider === 'kbar')
@@ -11,25 +16,42 @@ const SearchButton = () => {
       siteMetadata.search.provider === 'algolia' ? AlgoliaButton : KBarButton
 
     return (
-      <SearchButtonWrapper
-        aria-label="Search"
-        className="flex items-center justify-center rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
+      <div
+        className="relative flex items-center justify-center"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
+        {/* Tooltip */}
+        {isHovered && (
+          <div
+            className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md whitespace-nowrap"
+          >
+            Search the site
+          </div>
+        )}
+        {/* Button */}
+        <SearchButtonWrapper
+          aria-label="Search"
+          className={`relative flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400 ${
+            isHovered ? 'shadow-[0_0_10px_rgba(59,130,246,0.5)]' : ''
+          }`}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-          />
-        </svg>
-      </SearchButtonWrapper>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </SearchButtonWrapper>
+      </div>
     )
   }
   return null
