@@ -8,6 +8,7 @@ const LightDarkSwitcher = () => {
   const { setTheme, resolvedTheme } = useTheme()
   const [isMounted, setIsMounted] = useState(false) // Ensure consistent hydration
   const isDark = resolvedTheme === 'dark'
+  const [showTooltip, setShowTooltip] = useState(false) // For tooltip visibility
 
   useEffect(() => {
     setIsMounted(true) // Mark as mounted after hydration
@@ -32,160 +33,173 @@ const LightDarkSwitcher = () => {
 
   if (!isMounted) {
     // Render nothing on the server to avoid hydration mismatch
-    return <div className="h-8 w-8" aria-hidden="true"></div>
+    return null
   }
 
   return (
-    <motion.button
-      aria-label="Toggle Dark Mode"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="flex items-center justify-center rounded-md p-2"
-      initial={false}
-      animate={isDark ? 'checked' : 'unchecked'}
-      transition={{ duration }}
-    >
-      <motion.svg
-        width="28"
-        height="28"
-        viewBox="0 0 25 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+    <div className="relative flex items-center justify-center">
+      {/* Tooltip */}
+      {showTooltip && (
+        <div
+          className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-3 py-1 text-sm text-white shadow-md whitespace-nowrap"
+        >
+          {isDark ? 'Activate light mode' : 'Activate dark mode'}
+        </div>
+      )}
+
+      <motion.button
+        aria-label="Toggle Dark Mode"
+        onClick={() => setTheme(isDark ? 'light' : 'dark')}
+        className="flex items-center justify-center rounded-md p-3 hover:scale-105 transition-transform"
+        initial={false}
+        animate={isDark ? 'checked' : 'unchecked'}
+        transition={{ duration }}
       >
-        {/* Sun Core */}
-        <motion.path
-          d="M12.4058 17.7625C15.1672 17.7625 17.4058 15.5239 17.4058 12.7625C17.4058 10.0011 15.1672 7.76251 12.4058 7.76251C9.64434 7.76251 7.40576 10.0011 7.40576 12.7625C7.40576 15.5239 9.64434 17.7625 12.4058 17.7625Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        {/* Sun Rays */}
-        <motion.path
-          d="M12.4058 1.76251V3.76251"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M12.4058 21.7625V23.7625"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M4.62598 4.98248L6.04598 6.40248"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M18.7656 18.7656L20.1856 20.1856"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M1.40576 12.7625H3.40576"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M21.4058 12.7625H23.4058"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M6.04598 19.1225L4.62598 20.5425"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        <motion.path
-          d="M20.1856 4.98248L18.7656 6.40248"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthSun,
-            scale: scaleSun,
-          }}
-          variants={sunVariants}
-          transition={{ duration }}
-        />
-        {/* Moon */}
-        <motion.path
-          d="M21.1918 13.2013C21.0345 14.9035 20.3957 16.5257 19.35 17.8781C18.3044 19.2305 16.8953 20.2571 15.2875 20.8379C13.6797 21.4186 11.9398 21.5294 10.2713 21.1574C8.60281 20.7854 7.07479 19.9459 5.86602 18.7371C4.65725 17.5283 3.81774 16.0003 3.4457 14.3318C3.07367 12.6633 3.18451 10.9234 3.76526 9.31561C4.346 7.70783 5.37263 6.29868 6.72501 5.25307C8.07739 4.20746 9.69959 3.56862 11.4018 3.41132C10.4052 4.75958 9.92564 6.42077 10.0503 8.09273C10.175 9.76469 10.8957 11.3364 12.0812 12.5219C13.2667 13.7075 14.8384 14.4281 16.5104 14.5528C18.1823 14.6775 19.8435 14.1979 21.1918 13.2013Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{
-            pathLength: pathLengthMoon,
-            scale: scaleMoon,
-          }}
-          variants={moonVariants}
-          transition={{ duration }}
-        />
-      </motion.svg>
-    </motion.button>
+        <motion.svg
+          width="32"
+          height="32"
+          viewBox="0 0 25 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onMouseEnter={() => setTimeout(() => setShowTooltip(true), 200)} // Show tooltip with delay
+          onMouseLeave={() => setShowTooltip(false)} // Hide tooltip
+        >
+          {/* Sun Core */}
+          <motion.path
+            d="M12.4058 17.7625C15.1672 17.7625 17.4058 15.5239 17.4058 12.7625C17.4058 10.0011 15.1672 7.76251 12.4058 7.76251C9.64434 7.76251 7.40576 10.0011 7.40576 12.7625C7.40576 15.5239 9.64434 17.7625 12.4058 17.7625Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          {/* Sun Rays */}
+          <motion.path
+            d="M12.4058 1.76251V3.76251"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M12.4058 21.7625V23.7625"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M4.62598 4.98248L6.04598 6.40248"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M18.7656 18.7656L20.1856 20.1856"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M1.40576 12.7625H3.40576"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M21.4058 12.7625H23.4058"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M6.04598 19.1225L4.62598 20.5425"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          <motion.path
+            d="M20.1856 4.98248L18.7656 6.40248"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthSun,
+              scale: scaleSun,
+            }}
+            variants={sunVariants}
+            transition={{ duration }}
+          />
+          {/* Moon */}
+          <motion.path
+            d="M21.1918 13.2013C21.0345 14.9035 20.3957 16.5257 19.35 17.8781C18.3044 19.2305 16.8953 20.2571 15.2875 20.8379C13.6797 21.4186 11.9398 21.5294 10.2713 21.1574C8.60281 20.7854 7.07479 19.9459 5.86602 18.7371C4.65725 17.5283 3.81774 16.0003 3.4457 14.3318C3.07367 12.6633 3.18451 10.9234 3.76526 9.31561C4.346 7.70783 5.37263 6.29868 6.72501 5.25307C8.07739 4.20746 9.69959 3.56862 11.4018 3.41132C10.4052 4.75958 9.92564 6.42077 10.0503 8.09273C10.175 9.76469 10.8957 11.3364 12.0812 12.5219C13.2667 13.7075 14.8384 14.4281 16.5104 14.5528C18.1823 14.6775 19.8435 14.1979 21.1918 13.2013Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              pathLength: pathLengthMoon,
+              scale: scaleMoon,
+            }}
+            variants={moonVariants}
+            transition={{ duration }}
+          />
+        </motion.svg>
+      </motion.button>
+    </div>
   )
 }
 
