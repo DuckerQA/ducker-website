@@ -37,11 +37,15 @@ const LightDarkSwitcher = () => {
   }
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div
+      className="relative flex items-center justify-center"
+      onMouseEnter={() => setTimeout(() => setShowTooltip(true), 150)} // Show tooltip with slight delay
+      onMouseLeave={() => setShowTooltip(false)} // Hide tooltip immediately
+    >
       {/* Tooltip */}
       {showTooltip && (
         <div
-          className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-3 py-1 text-sm text-white shadow-md whitespace-nowrap"
+          className="absolute top-full mt-2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md whitespace-nowrap"
         >
           {isDark ? 'Activate light mode' : 'Activate dark mode'}
         </div>
@@ -50,19 +54,17 @@ const LightDarkSwitcher = () => {
       <motion.button
         aria-label="Toggle Dark Mode"
         onClick={() => setTheme(isDark ? 'light' : 'dark')}
-        className="flex items-center justify-center rounded-md p-3 hover:scale-105 transition-transform"
+        className="flex items-center justify-center rounded-full border border-gray-300 p-2 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_10px_rgba(66,153,225,0.5)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         initial={false}
         animate={isDark ? 'checked' : 'unchecked'}
         transition={{ duration }}
       >
         <motion.svg
-          width="32"
-          height="32"
+          width="24"
+          height="24"
           viewBox="0 0 25 25"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          onMouseEnter={() => setTimeout(() => setShowTooltip(true), 200)} // Show tooltip with delay
-          onMouseLeave={() => setShowTooltip(false)} // Hide tooltip
         >
           {/* Sun Core */}
           <motion.path
