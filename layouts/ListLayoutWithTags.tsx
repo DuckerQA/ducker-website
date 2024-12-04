@@ -8,7 +8,7 @@ import Link from '@/components/Link'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 import Image from 'next/image'
-import { formatDate } from 'pliny/utils/formatDate' // Ensure you have this utility
+import { formatDate } from 'pliny/utils/formatDate'
 
 interface ListLayoutProps {
   posts: CoreContent<Blog>[]
@@ -33,8 +33,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   }, [])
 
   const toggleTag = (tag: string | null) => {
-    setSelectedTag(tag)
-    router.push(`/blog${tag ? `?tag=${tag}` : ''}`)
+    // If the same tag is clicked again, reset to "All"
+    const newTag = selectedTag === tag ? null : tag
+    setSelectedTag(newTag)
+    router.push(`/blog${newTag ? `?tag=${newTag}` : ''}`)
   }
 
   const filteredPosts = selectedTag
