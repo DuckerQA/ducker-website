@@ -3,40 +3,60 @@
 import { usePathname } from 'next/navigation'
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-import Logo from '@/data/logo.svg'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitchWrapper from './ThemeSwitchWrapper'
 import SearchButton from './SearchButton'
+import { useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const Header = () => {
   const pathname = usePathname()
-  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
+  const { resolvedTheme } = useTheme() // Get the current theme
+  const logoSrc =
+    resolvedTheme === 'dark'
+      ? siteMetadata.siteLogoDark || siteMetadata.siteLogo // Use dark mode logo if available
+      : siteMetadata.siteLogo || '/default-logo.png'
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-2'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
 
   return (
     <header className={headerClass}>
-      {/* Logo and Title */}
-      <Link
-        href="/"
-        aria-label={siteMetadata.headerTitle}
-        className="flex items-center rounded-md font-medium text-gray-900 hover:text-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-primary-400 dark:focus:ring-offset-gray-950"
+      {/* Logo and Title with Tooltip */}
+      <div
+        className="relative flex items-center"
+        onMouseEnter={() => setShowTooltip(true)} // Show tooltip on hover
+        onMouseLeave={() => setShowTooltip(false)} // Hide tooltip on hover out
       >
-        <div className="flex items-center justify-between">
-          <div className="mr-3">
-            <Logo />
-          </div>
-          {typeof siteMetadata.headerTitle === 'string' ? (
-            <div className="hidden h-6 text-2xl font-semibold sm:block">
-              {siteMetadata.headerTitle}
+        <Link
+          href="/"
+          aria-label={siteMetadata.headerTitle}
+          className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950"
+        >
+          <div className="flex items-center justify-between">
+            <div className="mr-3">
+              <img src={logoSrc} alt={siteMetadata.headerTitle} className="h-[6.5rem] w-auto" />
             </div>
-          ) : (
-            siteMetadata.headerTitle
-          )}
-        </div>
-      </Link>
+            {typeof siteMetadata.headerTitle === 'string' ? (
+              <div className="hidden h-6 text-2xl font-semibold sm:block">
+                {siteMetadata.headerTitle}
+              </div>
+            ) : (
+              siteMetadata.headerTitle
+            )}
+          </div>
+        </Link>
+        {/* Tooltip */}
+        {showTooltip && (
+          <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-md sm:hidden md:block">
+            Go to Home
+          </div>
+        )}
+      </div>
 
       {/* Navigation Section */}
       <nav className="flex items-center space-x-4 leading-5 sm:space-x-6">
@@ -53,9 +73,9 @@ const Header = () => {
                   href={link.href}
                   className={`block rounded-md font-medium ${
                     isActive
-                      ? 'text-primary-500 dark:text-primary-400'
-                      : 'text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400'
-                  } focus:outline-none focus:ring-4 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-950`}
+                      ? 'text-blue-700 dark:text-blue-500'
+                      : 'text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-blue-500'
+                  } focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950`}
                 >
                   {link.title}
                 </Link>
@@ -65,8 +85,6 @@ const Header = () => {
 
         {/* Additional Buttons */}
         <div className="flex items-center space-x-2">
-          {' '}
-          {/* Adjusted gap */}
           <SearchButton />
           <ThemeSwitchWrapper />
         </div>
