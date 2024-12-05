@@ -23,6 +23,7 @@
     "body-scroll-lock": "^4.0.0-beta.0",
     "contentlayer2": "0.5.3",
     "esbuild": "0.20.2",
+    "focus-visible": "^5.2.1",
     "framer-motion": "latest",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.2",

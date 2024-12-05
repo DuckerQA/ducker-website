@@ -35,7 +35,7 @@ const Header = () => {
         <Link
           href="/"
           aria-label={siteMetadata.headerTitle}
-          className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950"
+          className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950"
         >
           <div className="flex items-center justify-between">
             <div className="mr-3">
@@ -75,7 +75,7 @@ const Header = () => {
                     isActive
                       ? 'text-blue-700 dark:text-blue-500'
                       : 'text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-blue-500'
-                  } focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950`}
+                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950`}
                 >
                   {link.title}
                 </Link>

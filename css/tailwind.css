@@ -58,3 +58,12 @@ input:-webkit-autofill:focus {
   display: inline-block;
   vertical-align: middle;
 }
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  /* outline: 2px solid #1d4ed8;  */
+  outline-offset: 2px; 
+}
