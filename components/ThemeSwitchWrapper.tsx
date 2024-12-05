@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { useState } from 'react';
+import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { useTheme } from 'next-themes'
+import { useState } from 'react'
 
 const LightDarkSwitcher = () => {
-  const { setTheme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-  const [showTooltip, setShowTooltip] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
+  const [showTooltip, setShowTooltip] = useState(false)
 
-  const duration = 0.7;
+  const duration = 0.7
 
   const moonVariants = {
     checked: { scale: 1 },
     unchecked: { scale: 0 },
-  };
+  }
 
   const sunVariants = {
     checked: { scale: 0 },
     unchecked: { scale: 1 },
-  };
+  }
 
-  const scaleMoon = useMotionValue(isDark ? 1 : 0);
-  const scaleSun = useMotionValue(isDark ? 0 : 1);
-  const pathLengthMoon = useTransform(scaleMoon, [0.6, 1], [0, 1]);
-  const pathLengthSun = useTransform(scaleSun, [0.6, 1], [0, 1]);
+  const scaleMoon = useMotionValue(isDark ? 1 : 0)
+  const scaleSun = useMotionValue(isDark ? 0 : 1)
+  const pathLengthMoon = useTransform(scaleMoon, [0.6, 1], [0, 1])
+  const pathLengthSun = useTransform(scaleSun, [0.6, 1], [0, 1])
 
   return (
     <div
@@ -189,7 +189,7 @@ const LightDarkSwitcher = () => {
         </motion.svg>
       </motion.button>
     </div>
-  );
-};
+  )
+}
 
-export default LightDarkSwitcher;
+export default LightDarkSwitcher

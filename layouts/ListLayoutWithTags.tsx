@@ -74,7 +74,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
             }`}
             aria-label="Show all blog posts"
           >
-            All ({totalPostsCount})
+            All [{totalPostsCount}]
           </button>
         </div>
 
@@ -90,7 +90,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
               }`}
               aria-label={`Filter blog posts by tag: ${tag}`}
             >
-              {`${tag} (${tagCounts[tag]})`}
+              {`${tag} [${tagCounts[tag]}]`}
             </button>
           </div>
         ))}
