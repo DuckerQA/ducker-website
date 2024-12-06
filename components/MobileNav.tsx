@@ -40,7 +40,7 @@ const MobileNav = () => {
       <button
         aria-label="Toggle Menu"
         onClick={onToggleNav}
-        className="rounded-md font-medium text-gray-900 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950 sm:hidden"
+        className="rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950 sm:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ const MobileNav = () => {
                         isActive
                           ? 'text-blue-700 dark:text-blue-500'
                           : 'text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-blue-500'
-                      } focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950`}
+                      } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950`}
                       onClick={onToggleNav}
                     >
                       {link.title}
@@ -98,7 +98,7 @@ const MobileNav = () => {
 
               {/* Close Button */}
               <button
-                className="absolute right-4 top-4 rounded-md font-medium text-gray-900 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus:ring-blue-500 dark:focus:ring-offset-gray-950"
+                className="dark:focus-visible-visible:ring-blue-500 dark:focus-visible-visible:ring-offset-gray-950 absolute right-4 top-4 rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500"
                 aria-label="Close Menu"
                 onClick={onToggleNav}
               >

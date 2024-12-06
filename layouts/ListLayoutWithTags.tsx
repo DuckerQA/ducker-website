@@ -24,7 +24,6 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
   useEffect(() => {
-    // This ensures the code only executes client-side
     const params = new URLSearchParams(window.location.search)
     const tagParam = params.get('tag')
     setSelectedTag(tagParam || null)
@@ -44,16 +43,15 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
   return (
     <div suppressHydrationWarning>
-      {/* Spacing Above Title */}
       <div className="h-[48px]" aria-hidden="true" />
 
-      {/* Page Title */}
-      <h1 className="mb-2 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
+      {/* Title Section */}
+      <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
         {title}
       </h1>
 
       {/* Blog Description */}
-      <div className="mb-8 text-lg text-gray-700 dark:text-gray-300">
+      <div className="mb-10 text-lg text-gray-700 dark:text-gray-300">
         <p className="w-full sm:max-w-full lg:max-w-[60%]">
           Yo! 🦆 and welcome to my testing lair – where bugs don’t stand a chance! Grab a seat,
           explore some tips, laugh at my QA struggles, and maybe even learn something useful. Make
@@ -61,84 +59,108 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
         </p>
       </div>
 
-      {/* Tags Section */}
-      <div className="flex flex-wrap gap-4">
-        {/* "All" Tag */}
-        <div>
+      {/* Tag Filter Section */}
+      <div className="mb-8 flex flex-wrap gap-4" role="region" aria-labelledby="tag-filter-heading">
+        <h2 id="tag-filter-heading" className="sr-only">
+          Tag Filter
+        </h2>
+
+        {/* "All posts" button */}
+        <button
+          onClick={() => toggleTag(null)}
+          aria-pressed={selectedTag === null}
+          aria-label={`Show all posts (${totalPostsCount} total)`}
+          className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+            selectedTag === null
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+          }`}
+        >
+          All posts [{totalPostsCount}]
+        </button>
+
+        {/* Tag buttons */}
+        {sortedTags.map((tag) => (
           <button
-            onClick={() => toggleTag(null)}
-            className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-              selectedTag === null
-                ? 'bg-blue-500 text-white'
+            key={tag}
+            onClick={() => toggleTag(tag)}
+            aria-pressed={selectedTag === tag}
+            aria-label={`Filter by tag: ${tag} (${tagCounts[tag]} posts)`}
+            className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+              selectedTag === tag
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
             }`}
-            aria-label="Show all blog posts"
           >
-            All ({totalPostsCount})
+            {`${tag} [${tagCounts[tag]}]`}
           </button>
-        </div>
-
-        {/* Other Tags */}
-        {sortedTags.map((tag) => (
-          <div key={tag}>
-            <button
-              onClick={() => toggleTag(tag)}
-              className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
-                selectedTag === tag
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
-              aria-label={`Filter blog posts by tag: ${tag}`}
-            >
-              {`${tag} (${tagCounts[tag]})`}
-            </button>
-          </div>
         ))}
       </div>
 
-      {/* Line Directly Below Tags */}
-      <div className="mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+      <div
+        className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600"
+        aria-hidden="true"
+      ></div>
 
-      {/* Posts Section */}
+      {/* Post Cards */}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredPosts.map((post) => {
           const { path, date, title, summary, tags, images } = post
           const postImage = Array.isArray(images) ? images[0] : images
 
           return (
-            <div key={path} className="relative overflow-hidden rounded-lg shadow-md">
-              <Link href={`/${path}`} aria-label={title}>
-                <div className="relative h-48 bg-gray-200">
+            <article
+              key={path}
+              aria-labelledby={`post-title-${path}`}
+              className="relative flex flex-col overflow-hidden rounded-2xl border border-[#001066]/10 bg-white shadow focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:ring-offset-white dark:border-white/10 dark:bg-[#1c1e26] dark:focus-within:ring-offset-gray-950"
+            >
+              {/* Image */}
+              <Link href={`/${path}`} aria-hidden="true" tabIndex={-1}>
+                <div className="relative h-48 overflow-hidden rounded-t-2xl bg-gray-200">
                   <Image
                     src={postImage || '/placeholder-image.jpg'}
                     alt={`Image for ${title}`}
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute bottom-0 left-0 flex flex-wrap gap-2 p-2">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-blue-500 px-2 py-1 text-xs font-medium text-white"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </Link>
-              <div className="p-4">
-                <Link href={`/${path}`} aria-label={title}>
-                  <h2 className="mb-2 text-xl font-bold leading-6 text-gray-900 dark:text-gray-100">
-                    {title}
-                  </h2>
-                </Link>
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+
+              {/* Content */}
+              <div className="flex h-full flex-col justify-between p-8">
+                {/* Date */}
+                <p className="mb-2 text-sm font-normal uppercase leading-tight text-[#000833]/60 dark:text-white/80">
                   {formatDate(date, siteMetadata.locale)}
                 </p>
-                <p className="text-gray-700 dark:text-gray-300">{summary}</p>
+
+                {/* Title */}
+                <h2
+                  id={`post-title-${path}`}
+                  className="mb-2 text-xl font-semibold leading-7 text-[#000626]/90 dark:text-white"
+                >
+                  <Link href={`/${path}`} className="hover:underline focus-visible:outline-none">
+                    {title}
+                  </Link>
+                </h2>
+
+                {/* Summary */}
+                <p className="mb-2 line-clamp-2 text-base font-normal leading-normal text-[#000833]/60 dark:text-white/80">
+                  {summary}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 pt-4">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-[#001066]/10 bg-[#00157f]/5 px-3 py-1 text-sm font-medium text-[#000626]/90 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </article>
           )
         })}
       </div>

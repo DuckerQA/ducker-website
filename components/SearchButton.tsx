@@ -30,9 +30,7 @@ const SearchButton = () => {
         {/* Button */}
         <SearchButtonWrapper
           aria-label="Search"
-          className={`relative flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-900 hover:text-blue-700 focus:border-2 focus:border-blue-700 dark:text-gray-100 dark:hover:text-blue-500 dark:focus:border-blue-500 ${
-            isHovered ? 'shadow-[0_0_10px_rgba(59,130,246,0.5)]' : ''
-          }`}
+          className={`relative flex items-center justify-center rounded-lg border border-gray-300 p-2 text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-gray-100 dark:hover:text-blue-500 dark:focus-visible:ring-blue-500`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
