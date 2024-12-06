@@ -31,18 +31,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <title>{siteMetadata.title || 'Blog | DuckerQA'}</title>
-        <meta name="description" content={siteMetadata.description || 'DuckerQA - Your ultimate testing blog'} />
-        <link
-          rel="icon"
-          href={`${basePath}/static/favicons/favicon.ico`}
-          sizes="any"
+        <meta
+          name="description"
+          content={siteMetadata.description || 'DuckerQA - Your ultimate testing blog'}
         />
+        <link rel="icon" href={`${basePath}/static/favicons/favicon.ico`} sizes="any" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
         <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       </head>
-      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white pl-[calc(100vw-100%)]">
+      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         {/* Skip to Content Button */}
         <a
           href="#main-content"

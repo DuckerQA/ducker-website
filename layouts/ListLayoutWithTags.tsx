@@ -97,7 +97,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
         ))}
       </div>
 
-      <div className="mt-4 mb-12 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+      <div className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
 
       {/* Post Cards */}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -106,12 +106,14 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
           const postImage = Array.isArray(images) ? images[0] : images
 
           return (
-            <div
+            <article
               key={path}
-              className="relative flex flex-col overflow-hidden rounded-2xl shadow border border-[#001066]/10 dark:border-white/10 bg-white dark:bg-[#1c1e26]"
+              aria-labelledby={`post-title-${path}`}
+              className="relative flex flex-col overflow-hidden rounded-2xl border border-[#001066]/10 bg-white shadow focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 focus-within:ring-offset-white dark:border-white/10 dark:bg-[#1c1e26] dark:focus-within:ring-offset-gray-950"
             >
-              <Link href={`/${path}`} aria-label={title}>
-                <div className="relative h-48 bg-gray-200 rounded-t-2xl overflow-hidden">
+              {/* Image */}
+              <Link href={`/${path}`} aria-hidden="true" tabIndex={-1}>
+                <div className="relative h-48 overflow-hidden rounded-t-2xl bg-gray-200">
                   <Image
                     src={postImage || '/placeholder-image.jpg'}
                     alt={`Image for ${title}`}
@@ -121,38 +123,38 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                 </div>
               </Link>
 
-              <div className="flex flex-col justify-between p-8 h-full">
+              {/* Content */}
+              <div className="flex h-full flex-col justify-between p-8">
                 {/* Date */}
-                <p className="mb-2 text-sm text-[#000833]/60 dark:text-white/80 font-normal uppercase leading-tight">
+                <p className="mb-2 text-sm font-normal uppercase leading-tight text-[#000833]/60 dark:text-white/80">
                   {formatDate(date, siteMetadata.locale)}
                 </p>
 
                 {/* Title */}
-                <Link href={`/${path}`} aria-label={title}>
-                  <h2 className="mb-2 text-xl text-[#000626]/90 dark:text-white font-semibold leading-7">
+                <h2 id={`post-title-${path}`} className="mb-2 text-xl font-semibold leading-7 text-[#000626]/90 dark:text-white">
+                  <Link href={`/${path}`} className="hover:underline focus-visible:outline-none">
                     {title}
-                  </h2>
-                </Link>
+                  </Link>
+                </h2>
 
                 {/* Summary */}
-                <p className="mb-2 text-base text-[#000833]/60 dark:text-white/80 font-normal leading-normal line-clamp-2">
+                <p className="mb-2 line-clamp-2 text-base font-normal leading-normal text-[#000833]/60 dark:text-white/80">
                   {summary}
                 </p>
 
                 {/* Tags */}
-<div className="flex flex-wrap gap-2 pt-4">
-  {tags.map((tag) => (
-    <span
-      key={tag}
-      className="rounded-full px-3 py-1 text-sm font-medium bg-[#00157f]/5 dark:bg-white/5 text-[#000626]/90 dark:text-white border border-[#001066]/10 dark:border-white/10"
-    >
-      {tag}
-    </span>
-  ))}
-</div>
-
+                <div className="flex flex-wrap gap-2 pt-4">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-[#001066]/10 bg-[#00157f]/5 px-3 py-1 text-sm font-medium text-[#000626]/90 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </article>
           )
         })}
       </div>
