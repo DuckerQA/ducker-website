@@ -31,39 +31,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <title>{siteMetadata.title || 'Blog | DuckerQA'}</title>
-        <link
-          rel="apple-touch-icon"
-          sizes="76x76"
-          href={`${basePath}/static/favicons/apple-touch-icon.png`}
-        />
+        <meta name="description" content={siteMetadata.description || 'DuckerQA - Your ultimate testing blog'} />
         <link
           rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href={`${basePath}/static/favicons/favicon-32x32.png`}
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href={`${basePath}/static/favicons/favicon-16x16.png`}
-        />
-        <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
-        <link
-          rel="mask-icon"
-          href={`${basePath}/static/favicons/safari-pinned-tab.svg`}
-          color="#5bbad5"
+          href={`${basePath}/static/favicons/favicon.ico`}
+          sizes="any"
         />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
         <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       </head>
-      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className="bg-white text-black antialiased dark:bg-gray-950 dark:text-white pl-[calc(100vw-100%)]">
         {/* Skip to Content Button */}
         <a
           href="#main-content"
-          className="absolute left-2 top-2 z-50 -translate-y-full rounded bg-gray-800 px-4 py-2 text-white opacity-0 focus:translate-y-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute left-2 top-2 z-50 -translate-y-full rounded bg-blue-600 px-4 py-2 text-white opacity-0 focus:translate-y-0 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Skip to Content
         </a>
@@ -71,16 +54,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-              {/* Header Landmark */}
-              <header>
+              {/* Header */}
+              <header aria-label="Site Header">
                 <Header />
               </header>
-              {/* Main Landmark */}
-              <main id="main-content" role="main" className="mb-auto">
+              {/* Main Content */}
+              <main id="main-content" role="main" className="mb-auto" aria-label="Main Content">
                 {children}
               </main>
-              {/* Footer Landmark */}
-              <footer>
+              {/* Footer */}
+              <footer aria-label="Site Footer">
                 <Footer />
               </footer>
             </SearchProvider>
