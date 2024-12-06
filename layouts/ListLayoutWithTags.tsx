@@ -60,11 +60,17 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
       </div>
 
       {/* Tag Filter Section */}
-      <div className="mb-8 flex flex-wrap gap-4">
+      <div className="mb-8 flex flex-wrap gap-4" role="region" aria-labelledby="tag-filter-heading">
+        <h2 id="tag-filter-heading" className="sr-only">
+          Tag Filter
+        </h2>
+
         {/* "All posts" button */}
         <button
           onClick={() => toggleTag(null)}
-          className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+          aria-pressed={selectedTag === null}
+          aria-label={`Show all posts (${totalPostsCount} total)`}
+          className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
             selectedTag === null
               ? 'bg-blue-600 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
@@ -78,7 +84,9 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
-            className={`rounded-full px-3 py-2 text-sm font-medium uppercase ${
+            aria-pressed={selectedTag === tag}
+            aria-label={`Filter by tag: ${tag} (${tagCounts[tag]} posts)`}
+            className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
               selectedTag === tag
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
@@ -132,21 +140,17 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 pt-4">
-                  {tags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => toggleTag(tag)}
-                      className={`rounded-full px-3 py-1 text-sm font-medium ${
-                        selectedTag === tag
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-[#00157f]/5 dark:bg-white/5 text-[#000626]/90 dark:text-white border border-[#001066]/10 dark:border-white/10'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
+<div className="flex flex-wrap gap-2 pt-4">
+  {tags.map((tag) => (
+    <span
+      key={tag}
+      className="rounded-full px-3 py-1 text-sm font-medium bg-[#00157f]/5 dark:bg-white/5 text-[#000626]/90 dark:text-white border border-[#001066]/10 dark:border-white/10"
+    >
+      {tag}
+    </span>
+  ))}
+</div>
+
               </div>
             </div>
           )
