@@ -97,7 +97,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
         ))}
       </div>
 
-      <div className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+      <div
+        className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600"
+        aria-hidden="true"
+      ></div>
 
       {/* Post Cards */}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -131,7 +134,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
                 </p>
 
                 {/* Title */}
-                <h2 id={`post-title-${path}`} className="mb-2 text-xl font-semibold leading-7 text-[#000626]/90 dark:text-white">
+                <h2
+                  id={`post-title-${path}`}
+                  className="mb-2 text-xl font-semibold leading-7 text-[#000626]/90 dark:text-white"
+                >
                   <Link href={`/${path}`} className="hover:underline focus-visible:outline-none">
                     {title}
                   </Link>
