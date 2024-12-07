@@ -63,7 +63,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
       {/* Sekcja filtrów tagów */}
       <div
-        className="mb-8 flex overflow-x-auto gap-4 pb-2 -mx-4 px-4 scrollbar-hide sm:overflow-visible sm:flex-wrap sm:gap-6"
+        className="scrollbar-hide -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
         role="region"
         aria-labelledby="tag-filter-heading"
       >
@@ -104,7 +104,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
       </div>
 
       {/* Linia podziału */}
-      <div className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600" aria-hidden="true"></div>
+      <div
+        className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600"
+        aria-hidden="true"
+      ></div>
 
       {/* Karty postów */}
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
