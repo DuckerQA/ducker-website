@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
@@ -20,7 +19,6 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const sortedTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
 
   const totalPostsCount = posts.length
-  const router = useRouter()
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
   useEffect(() => {
@@ -32,7 +30,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
   const toggleTag = (tag: string | null) => {
     const newTag = selectedTag === tag ? null : tag
     setSelectedTag(newTag)
-    router.push(`/blog${newTag ? `?tag=${newTag}` : ''}`)
+
+    // Update URL without scrolling the page
+    const newUrl = `/blog${newTag ? `?tag=${newTag}` : ''}`
+    window.history.replaceState(null, '', newUrl)
   }
 
   const filteredPosts = selectedTag
@@ -43,14 +44,15 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
   return (
     <div suppressHydrationWarning>
+      {/* Spacer at the top */}
       <div className="h-[48px]" aria-hidden="true" />
 
-      {/* Title Section */}
-      <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100">
+      {/* Page Title */}
+      <h1 className="mb-6 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
         {title}
       </h1>
 
-      {/* Blog Description */}
+      {/* Page Description */}
       <div className="mb-10 text-lg text-gray-700 dark:text-gray-300">
         <p className="w-full sm:max-w-full lg:max-w-[60%]">
           Yo! 🦆 and welcome to my testing lair – where bugs don’t stand a chance! Grab a seat,
@@ -60,35 +62,40 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
       </div>
 
       {/* Tag Filter Section */}
-      <div className="mb-8 flex flex-wrap gap-4" role="region" aria-labelledby="tag-filter-heading">
+      <div
+        className="relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
+        role="region"
+        aria-labelledby="tag-filter-heading"
+        style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }} // Ensures focused tags are visible
+      >
         <h2 id="tag-filter-heading" className="sr-only">
           Tag Filter
         </h2>
 
-        {/* "All posts" button */}
+        {/* "All Posts" Button */}
         <button
           onClick={() => toggleTag(null)}
           aria-pressed={selectedTag === null}
           aria-label={`Show all posts (${totalPostsCount} total)`}
-          className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+          className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
             selectedTag === null
-              ? 'bg-blue-600 text-white'
+              ? 'bg-blue-600 text-white shadow-lg'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
           }`}
         >
           All posts [{totalPostsCount}]
         </button>
 
-        {/* Tag buttons */}
+        {/* Tag Buttons */}
         {sortedTags.map((tag) => (
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
             aria-pressed={selectedTag === tag}
             aria-label={`Filter by tag: ${tag} (${tagCounts[tag]} posts)`}
-            className={`rounded-full px-3 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+            className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
               selectedTag === tag
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-600 text-white shadow-lg'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
             }`}
           >
@@ -97,6 +104,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
         ))}
       </div>
 
+      {/* Divider Line */}
       <div
         className="mb-12 mt-4 h-[1px] w-full bg-gray-300 dark:bg-gray-600"
         aria-hidden="true"
