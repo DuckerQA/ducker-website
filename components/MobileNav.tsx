@@ -39,7 +39,7 @@ const MobileNav = () => {
         aria-label="Toggle menu"
         aria-expanded={navShow}
         onClick={onToggleNav}
-        className="sm:hidden rounded-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950"
+        className="rounded-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 sm:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const MobileNav = () => {
                 <button
                   aria-label="Close menu"
                   onClick={onToggleNav}
-                  className="absolute top-4 right-4 rounded-md text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                  className="absolute right-4 top-4 rounded-md text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ const MobileNav = () => {
                       key={link.title}
                       href={link.href}
                       onClick={onToggleNav}
-                      className="block text-xl font-medium text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                      className="block text-xl font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
                     >
                       {link.title}
                     </Link>
