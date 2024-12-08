@@ -63,10 +63,10 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
       {/* Tag Filter Section */}
       <div
-        className="relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
+        className="scrollbar-hide relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
         role="region"
         aria-labelledby="tag-filter-heading"
-        style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }} // Ensures focused tags are visible
+        style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }}
       >
         <h2 id="tag-filter-heading" className="sr-only">
           Tag Filter
