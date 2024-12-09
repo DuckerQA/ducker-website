@@ -175,4 +175,3 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
     </div>
   )
 }
- 
