@@ -53,7 +53,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
       </h1>
 
       {/* Page Description */}
-      <div className="mb-10 text-lg text-gray-700 dark:text-gray-300">
+      <div className="mb-6 text-lg text-gray-700 dark:text-gray-300">
         <p className="w-full sm:max-w-full lg:max-w-[60%]">
           Yo! 🦆 and welcome to my testing lair – where bugs don’t stand a chance! Grab a seat,
           explore some tips, laugh at my QA struggles, and maybe even learn something useful. Make
@@ -63,7 +63,7 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
 
       {/* Tag Filter Section */}
       <div
-        className="scrollbar-hide relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
+        className="scrollbar-hide relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 pt-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
         role="region"
         aria-labelledby="tag-filter-heading"
         style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }}
