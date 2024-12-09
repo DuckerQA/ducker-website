@@ -1,35 +1,30 @@
 'use client'
 
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState, useRef, useEffect } from 'react'
-import Link from './Link'
-import headerNavLinks from '@/data/headerNavLinks'
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState, useRef, useEffect } from 'react';
+import Link from './Link';
+import headerNavLinks from '@/data/headerNavLinks';
 
 const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false)
-  const [hydrated, setHydrated] = useState(false) // Ensures hydration match
-  const navRef = useRef<HTMLDivElement | null>(null)
-  const firstFocusableRef = useRef<HTMLButtonElement | null>(null)
+  const [navShow, setNavShow] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const navRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setHydrated(true) // Only set this to true on the client side
-  }, [])
+    setHydrated(true);
+  }, []);
 
-  const onToggleNav = () => {
-    setNavShow((status) => !status)
-  }
-
-  if (!hydrated) return null // Prevent mismatched rendering during hydration
+  if (!hydrated) return null; // Avoid SSR/CSR mismatch
 
   return (
     <>
-      {/* Hamburger Button */}
       <button
         aria-label="Toggle menu"
         aria-expanded={navShow}
-        onClick={onToggleNav}
+        onClick={() => setNavShow(!navShow)}
         className="rounded-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 sm:hidden"
       >
+        {/* Hamburger Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -44,20 +39,19 @@ const MobileNav = () => {
         </svg>
       </button>
 
-      {/* Mobile Navigation */}
       <Transition appear show={navShow} as={Fragment}>
         <Dialog
           as="div"
-          onClose={onToggleNav}
+          onClose={() => setNavShow(false)}
           className="relative z-50"
-          initialFocus={firstFocusableRef}
+          initialFocus={navRef}
           aria-labelledby="mobile-menu-heading"
           aria-describedby="mobile-menu-description"
         >
           {/* Overlay */}
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={onToggleNav}
+            onClick={() => setNavShow(false)}
             aria-hidden="true"
           ></div>
 
@@ -67,13 +61,12 @@ const MobileNav = () => {
               ref={navRef}
               className="relative w-4/5 max-w-md bg-white px-4 py-8 shadow-lg dark:bg-gray-950"
             >
-              {/* Close Button */}
               <button
-                ref={firstFocusableRef}
                 aria-label="Close menu"
-                onClick={onToggleNav}
+                onClick={() => setNavShow(false)}
                 className="absolute right-4 top-4 rounded-md text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
               >
+                {/* Close Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -88,7 +81,6 @@ const MobileNav = () => {
                 </svg>
               </button>
 
-              {/* Navigation Links */}
               <nav className="mt-8 flex flex-col space-y-4" aria-labelledby="mobile-menu-heading">
                 <h2 id="mobile-menu-heading" className="sr-only">
                   Mobile Navigation
@@ -100,7 +92,7 @@ const MobileNav = () => {
                   <Link
                     key={link.title}
                     href={link.href}
-                    onClick={onToggleNav}
+                    onClick={() => setNavShow(false)}
                     className="block text-xl font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
                   >
                     {link.title}
@@ -112,7 +104,7 @@ const MobileNav = () => {
         </Dialog>
       </Transition>
     </>
-  )
-}
+  );
+};
 
-export default MobileNav
+export default MobileNav;
