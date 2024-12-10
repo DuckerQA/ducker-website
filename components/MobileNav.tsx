@@ -1,20 +1,20 @@
 'use client'
 
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useRef, useEffect } from 'react';
-import Link from './Link';
-import headerNavLinks from '@/data/headerNavLinks';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState, useRef, useEffect } from 'react'
+import Link from './Link'
+import headerNavLinks from '@/data/headerNavLinks'
 
 const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
-  const navRef = useRef<HTMLDivElement | null>(null);
+  const [navShow, setNavShow] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
+  const navRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    setHydrated(true);
-  }, []);
+    setHydrated(true)
+  }, [])
 
-  if (!hydrated) return null; // Avoid SSR/CSR mismatch
+  if (!hydrated) return null // Avoid SSR/CSR mismatch
 
   return (
     <>
@@ -104,7 +104,7 @@ const MobileNav = () => {
         </Dialog>
       </Transition>
     </>
-  );
-};
+  )
+}
 
-export default MobileNav;
+export default MobileNav
