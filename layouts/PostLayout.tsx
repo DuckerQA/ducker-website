@@ -96,46 +96,38 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
           <footer className="mx-auto max-w-[60rem]">
             {/* Pagination */}
             {(next || prev) && (
-              <div className="mt-6 flex justify-between border-t border-gray-200 pt-6 dark:border-gray-700">
-                {prev ? (
-                  <div className="inline-flex flex-col items-start justify-start gap-1">
-                    <div className="inline-flex items-start justify-start gap-1 self-stretch pl-5">
-                      <div className="font-['Inter'] text-sm font-semibold uppercase leading-tight tracking-widest text-[#000833]/60 dark:text-white/80">
-                        Previous article
-                      </div>
-                    </div>
-                    <div className="inline-flex h-12 items-center justify-center rounded-lg">
+              <div className="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
+                <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+                  {/* Previous Article */}
+                  {prev && (
+                    <div className="ml-5 text-left sm:ml-0">
+                      <p className="text-sm font-semibold uppercase tracking-widest text-[#000833]/60 dark:text-white/80">
+                        Previous Article
+                      </p>
                       <Link
                         href={`/${prev.path}`}
-                        className="flex items-center justify-center gap-1 self-stretch rounded-lg px-4 font-['Inter'] text-base font-semibold leading-normal text-[#4b63d8] hover:underline dark:text-[#a3b2ff]"
+                        className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {prev.title}
                       </Link>
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-1/2" /> // Empty space to maintain layout
-                )}
+                  )}
 
-                {next ? (
-                  <div className="inline-flex flex-col items-end justify-start gap-1">
-                    <div className="inline-flex items-start justify-end gap-1 self-stretch pr-5">
-                      <div className="text-right font-['Inter'] text-sm font-semibold uppercase leading-tight tracking-widest text-[#000833]/60 dark:text-white/80">
-                        Next article
-                      </div>
-                    </div>
-                    <div className="inline-flex h-12 items-center justify-center rounded-lg">
+                  {/* Next Article */}
+                  {next && (
+                    <div className="ml-5 text-left sm:ml-0 sm:text-right">
+                      <p className="text-sm font-semibold uppercase tracking-widest text-[#000833]/60 dark:text-white/80">
+                        Next Article
+                      </p>
                       <Link
                         href={`/${next.path}`}
-                        className="flex items-center justify-center gap-1 self-stretch rounded-lg px-4 font-['Inter'] text-base font-semibold leading-normal text-[#4b63d8] hover:underline dark:text-[#a3b2ff]"
+                        className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-blue-400"
                       >
                         {next.title}
                       </Link>
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-1/2" /> // Empty space to maintain layout
-                )}
+                  )}
+                </div>
               </div>
             )}
           </footer>
