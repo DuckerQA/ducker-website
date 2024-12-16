@@ -82,12 +82,14 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
             </header>
 
             {/* Main Content */}
-            <div className="prose mx-auto max-w-[60rem] pt-6 text-justify dark:prose-invert">{children}</div>
+            <div className="prose mx-auto max-w-[60rem] pt-6 text-justify dark:prose-invert">
+              {children}
+            </div>
 
             {/* Footer */}
             <div className="mx-auto max-w-[60rem]">
               {next || prev ? (
-                <div className="mt-6 mb-6 pb-6 border-t border-gray-200 pt-6 dark:border-gray-700">
+                <div className="mb-6 mt-6 border-t border-gray-200 pb-6 pt-6 dark:border-gray-700">
                   <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
                     {prev && (
                       <div className="ml-5 text-left sm:ml-0">
@@ -122,47 +124,6 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
           </div>
         </article>
       </SectionContainer>
-
-      {/* You Might Also Like Section */}
-      <div className="relative w-full bg-[#00157f]/5 dark:bg-white/5 border-t border-[#001066]/10 dark:border-white/10 overflow-x-hidden">
-        <div className="max-w-[1440px] mx-auto px-[120px] py-24 flex-col justify-start items-center gap-8">
-          <div className="text-center text-[#000626]/90 text-[32px] font-semibold leading-10 dark:text-white">
-            You might also like
-          </div>
-          <div className="flex flex-wrap justify-start items-start gap-8">
-            {/* Example Post */}
-            <div className="grow shrink basis-[calc(33%-16px)] p-px bg-white dark:bg-[#1c1e26] rounded-2xl shadow border border-[#001066]/10 dark:border-white/10 flex-col justify-start items-center">
-              <div className="flex flex-col h-[460px]">
-                <img
-                  className="h-[204px] rounded-tl-[15px] rounded-tr-[15px]"
-                  src="https://via.placeholder.com/377x204"
-                  alt="Example Post"
-                />
-                <div className="flex-1 p-8">
-                  <div className="text-[#000833]/60 text-sm font-normal uppercase dark:text-white/80">
-                    December 15, 2024
-                  </div>
-                  <div className="text-[#000626]/90 text-xl font-semibold dark:text-white">
-                    Example Post Title
-                  </div>
-                  <div className="text-[#000833]/60 text-base dark:text-white/80">
-                    Example description for the post goes here.
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Repeat Example Post */}
-          </div>
-          <div className="flex justify-center items-center mt-8">
-            <Link
-              href="/blog"
-              className="text-center text-[#000833]/60 text-base underline dark:text-white/80"
-            >
-              View all articles
-            </Link>
-          </div>
-        </div>
-      </div>
     </>
   )
 }
