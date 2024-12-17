@@ -1,22 +1,25 @@
 const projectsData = [
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    href: 'https://www.google.com',
+    title: 'Ducker Website',
+    description:
+      'This is this page — my portfolio and blog. If you’re curious about how things are built here, feel free to dive in and check out my spaghetti code! I started with the Tailwind Next.js Starter Blog as the core, but I’ve made tons of changes and improvements along the way.',
+    href: '/projects/search-engine',
+    icon: '/static/images/projects/basicDuck.png',
     technologyIcons: [
-      '/static/images/technologyIcons/typescript.svg',
-      '/static/images/technologyIcons/playwright.svg',
+      { name: 'Typescript', icon: '/static/images/projects/typescript-logo.png' },
+      { name: 'Tailwind', icon: '/static/images/projects/tailwind-logo.png' },
     ],
   },
   {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    href: '/blog/the-time-machine',
-    technologyIcons: ['/static/images/technologyIcons/typescript.svg'],
+    title: 'Project Two',
+    description: 'An example project with Tailwind CSS.',
+    href: '/projects/project-two',
+    icon: '/icons/project-icon.png',
+    technologyIcons: [
+      { name: 'Playwright', icon: '/static/images/projects/playwright-logo.png' },
+      { name: 'Next.js', icon: '/icons/nextjs.png' },
+      { name: 'Tailwind', icon: '/icons/tailwind.png' },
+    ],
   },
 ]
 
