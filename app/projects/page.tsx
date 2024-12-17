@@ -1,94 +1,114 @@
 import projectsData from '@/data/projectsData'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Projects() {
+  if (!Array.isArray(projectsData)) {
+    console.error('projectsData is not an array!')
+    return <div>Error: Invalid projects data.</div>
+  }
+
   return (
-    <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Projects
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Explore the projects showcasing various technologies and solutions.
-          </p>
-        </div>
+    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="space-y-2 pb-8 pt-6 md:space-y-5">
+        <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          Projects
+        </h1>
+        <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          Explore the projects showcasing various technologies and solutions.
+        </p>
+      </div>
 
-        <div className="container py-12">
-          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
-            {projectsData.map((project, index) => (
-              <div
-                key={index}
-                className="flex flex-col rounded-2xl border border-gray-200 bg-white p-px shadow dark:border-white/10 dark:bg-[#1c1e26]"
-              >
-                <div className="flex h-full flex-col justify-between p-8">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200">
-                      {/* Replace with project-specific icon if available */}
-                      <img
-                        src={project.icon || 'https://via.placeholder.com/48'}
-                        alt={project.title}
-                        className="h-10 w-10 object-contain"
+      <div className="container py-12">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
+          {projectsData.map((project, index) => (
+            <div
+              key={index}
+              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-px shadow transition-transform duration-300
+              hover:scale-105 hover:shadow-lg dark:border-white/10 dark:bg-[#1c1e26]"
+            >
+              <div className="flex h-full flex-col justify-between p-8">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                  {/* Circle Icon */}
+                  <div className="flex h-12 w-12 items-center justify-center">
+                    {project.icon && (
+                      <Image
+                        src={project.icon}
+                        alt={project.title || 'Project Icon'}
+                        width={48}
+                        height={48}
+                        priority
+                        className="object-contain"
                       />
-                    </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 shadow">
-                      <Link
-                        href={project.href || '#'}
-                        className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="h-6 w-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 4.5l6 6m0 0l-6 6m6-6H3"
-                          />
-                        </svg>
-                      </Link>
-                    </div>
+                    )}
                   </div>
-
-                  {/* Title and Description */}
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.technologyIcons?.map((tech, techIndex) => (
-                      <div
-                        key={techIndex}
-                        className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 dark:border-gray-700 dark:bg-gray-800"
+                  {/* Arrow Link */}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 shadow">
+                    <Link
+                      href={project.href || '#'}
+                      className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700"
+                      aria-label={`View project: ${project.title}`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="h-6 w-6"
                       >
-                        <img
-                          src={tech.icon || 'https://via.placeholder.com/16'}
-                          alt={tech.name}
-                          className="h-4 w-4"
+                        <path
+                          fillRule="evenodd"
+                          d="M12.293 16.293a1 1 0 001.414 0l4-4a1 1 0 000-1.414l-4-4a1 1 0 10-1.414 1.414L14.586 11H5a1 1 0 100 2h9.586l-2.293 2.293a1 1 0 000 1.414z"
+                          clipRule="evenodd"
                         />
-                        <span className="text-sm text-gray-800 dark:text-gray-300">
-                          {tech.name}
-                        </span>
-                      </div>
-                    ))}
+                      </svg>
+                    </Link>
                   </div>
                 </div>
+
+                {/* Title and Description */}
+                <div className="mt-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Technologies */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {Array.isArray(project.technologyIcons) &&
+                    project.technologyIcons.map((tech, techIndex) => {
+                      const techName = typeof tech === 'string' ? tech : tech.name || 'Unknown'
+                      const techIcon = typeof tech === 'object' && tech.icon ? tech.icon : null
+
+                      return (
+                        <div
+                          key={techIndex}
+                          className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 dark:border-gray-700 dark:bg-gray-800"
+                        >
+                          {techIcon && (
+                            <Image
+                              src={techIcon}
+                              alt={techName}
+                              width={20}
+                              height={20}
+                              className="object-contain"
+                            />
+                          )}
+                          <span className="text-sm text-gray-800 dark:text-gray-300">
+                            {techName}
+                          </span>
+                        </div>
+                      )
+                    })}
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
