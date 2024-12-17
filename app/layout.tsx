@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
               </main>
               {/* Footer */}
-              <footer aria-label="Site Footer">
+              <footer aria-label="Site Footer" className="mt-8">
                 <Footer />
               </footer>
             </SearchProvider>
