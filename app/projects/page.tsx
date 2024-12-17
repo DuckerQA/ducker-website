@@ -24,37 +24,40 @@ export default function Projects() {
           {projectsData.map((project, index) => (
             <div
               key={index}
-              className="flex flex-col rounded-2xl border border-gray-200 bg-white p-px shadow transition-transform duration-300
+              className="group relative flex flex-col rounded-2xl border border-gray-200 bg-white p-px shadow transition-transform duration-300
               hover:scale-105 hover:shadow-lg dark:border-white/10 dark:bg-[#1c1e26]"
             >
               <div className="flex h-full flex-col justify-between p-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   {/* Circle Icon */}
-                  <div className="flex h-12 w-12 items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center" aria-hidden="true">
                     {project.icon && (
                       <Image
                         src={project.icon}
-                        alt={project.title || 'Project Icon'}
+                        alt=""
                         width={48}
                         height={48}
-                        priority
                         className="object-contain"
                       />
                     )}
                   </div>
+
                   {/* Arrow Link */}
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 shadow">
                     <Link
                       href={project.href || '#'}
-                      className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700"
-                      aria-label={`View project: ${project.title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                      aria-label={`Open project: ${project.title}`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
                         className="h-6 w-6"
+                        aria-hidden="true"
                       >
                         <path
                           fillRule="evenodd"
