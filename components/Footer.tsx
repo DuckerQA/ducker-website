@@ -38,6 +38,7 @@ export default function Footer() {
                 width={24}
                 height={24}
                 priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
               />
             </a>
             <a
@@ -53,6 +54,7 @@ export default function Footer() {
                 width={24}
                 height={24}
                 priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
               />
             </a>
             <a
@@ -68,6 +70,7 @@ export default function Footer() {
                 width={24}
                 height={24}
                 priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
               />
             </a>
           </nav>
