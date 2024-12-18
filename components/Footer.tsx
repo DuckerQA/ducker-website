@@ -32,7 +32,14 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="rounded focus-visible:outline focus-visible:ring-2 focus-visible:ring-blue-500"
             >
-              <Image src="/static/icons/mail.svg" alt="Email" width={24} height={24} priority />
+              <Image
+                src="/static/images/footer/email.svg"
+                alt="Email"
+                width={24}
+                height={24}
+                priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
+              />
             </a>
             <a
               href={siteMetadata.github}
@@ -41,7 +48,14 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="rounded focus-visible:outline focus-visible:ring-2 focus-visible:ring-blue-500"
             >
-              <Image src="/static/icons/github.svg" alt="GitHub" width={24} height={24} priority />
+              <Image
+                src="/static/images/footer/github.svg"
+                alt="GitHub"
+                width={24}
+                height={24}
+                priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
+              />
             </a>
             <a
               href={siteMetadata.linkedin}
@@ -51,11 +65,12 @@ export default function Footer() {
               className="rounded focus-visible:outline focus-visible:ring-2 focus-visible:ring-blue-500"
             >
               <Image
-                src="/static/icons/linkedin.svg"
+                src="/static/images/footer/linkedin.svg"
                 alt="LinkedIn"
                 width={24}
                 height={24}
                 priority
+                className="transition duration-200 hover:opacity-80 dark:invert"
               />
             </a>
           </nav>

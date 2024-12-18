@@ -2,7 +2,7 @@ const projectsData = [
   {
     title: 'Ducker Website',
     description:
-      'This is this page — my portfolio and blog. If you’re curious about how things are built here, feel free to dive in and check out my spaghetti code! I started with the Tailwind Next.js Starter Blog as the core, but I’ve made tons of changes and improvements along the way.',
+      'This is this website — my portfolio and blog. If you’re curious about how things are built here, feel free to dive in and check out my spaghetti code! I started with the Tailwind Next.js Starter Blog as the core, but I’ve made tons of changes and improvements along the way.',
     href: 'https://github.com/DuckerQA/ducker-website',
     icon: '/static/images/projects/basicDuck.png',
     technologyIcons: [

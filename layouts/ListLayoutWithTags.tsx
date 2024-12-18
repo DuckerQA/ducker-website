@@ -103,6 +103,24 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
           </button>
         ))}
       </div>
+      {/* arrow on mobile */}
+      <div
+        className="pointer-events-none absolute right-2 -translate-y-1/2 sm:hidden"
+        aria-hidden="true"
+      >
+        <svg
+          className="mb-6 h-6 w-6 animate-bounce text-gray-400"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M8.293 4.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L12.586 11H4a1 1 0 110-2h8.586L8.293 5.707a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
 
       {/* Divider Line */}
       <div
