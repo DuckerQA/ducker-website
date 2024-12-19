@@ -31,7 +31,7 @@ const Header = () => {
       : siteMetadata.siteLogo || '/default-logo.png'
 
   let headerClass =
-    'flex items-center w-full bg-white/90 dark:bg-gray-950/90 backdrop-blur justify-between py-2'
+    'flex items-center w-full transition-colors duration-500 ease-in-out bg-white/90 dark:bg-gray-950/90 backdrop-blur justify-between py-2'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
