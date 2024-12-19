@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${space_grotesk.variable} scroll-smooth transition-colors duration-500 ease-in-out`}
       suppressHydrationWarning
     >
       <head>
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
         <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       </head>
-      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased transition-colors duration-500 ease-in-out dark:bg-gray-950 dark:text-white">
         {/* Skip to Content Button */}
         <a
           href="#main-content"
@@ -54,15 +54,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
               {/* Header */}
-              <header aria-label="Site Header">
+              <header
+                aria-label="Site Header"
+                className="transition-colors duration-500 ease-in-out"
+              >
                 <Header />
               </header>
               {/* Main Content */}
-              <main id="main-content" role="main" className="mb-auto" aria-label="Main Content">
+              <main
+                id="main-content"
+                role="main"
+                className="mb-auto transition-colors duration-500 ease-in-out"
+                aria-label="Main Content"
+              >
                 {children}
               </main>
               {/* Footer */}
-              <footer aria-label="Site Footer" className="mt-8">
+              <footer
+                aria-label="Site Footer"
+                className="mt-8 transition-colors duration-500 ease-in-out"
+              >
                 <Footer />
               </footer>
             </SearchProvider>
