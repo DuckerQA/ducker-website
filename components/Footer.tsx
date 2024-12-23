@@ -94,7 +94,7 @@ export default function Footer() {
             >
               Projects
             </Link>
-            <Link
+            {/* <Link
               href="/terms"
               className="rounded hover:underline focus-visible:ring-2 focus-visible:ring-blue-500"
             >
@@ -105,7 +105,7 @@ export default function Footer() {
               className="rounded hover:underline focus-visible:ring-2 focus-visible:ring-blue-500"
             >
               Privacy
-            </Link>
+            </Link> */}
           </nav>
           <div className="flex items-center justify-center gap-3 text-sm text-[#000833]/40 dark:text-white/50">
             <div>{`© ${new Date().getFullYear()}`}</div>
