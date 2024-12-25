@@ -4,6 +4,7 @@ import { KBarSearchProvider } from 'pliny/search/KBar'
 import { useRouter } from 'next/navigation'
 import { Blog } from 'contentlayer/generated'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface SearchProviderProps {
   children: React.ReactNode
   searchConfig: any
