@@ -45,5 +45,6 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+articles-media
 
 /data/blog/
