@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function PerceivablePage() {
   return (
     <div className="container mx-auto px-4 py-8">
@@ -14,10 +16,12 @@ export default function PerceivablePage() {
         {/* Section 1: Problems with hearing */}
         <section className="mb-16">
           <div className="mb-8 flex items-center">
-            <img
+            <Image
               src="/static/images/articles-media/duckerOk.png"
               alt="Duck with an ear trumpet"
-              className="mr-8 h-48 w-48"
+              width={192}
+              height={192}
+              className="mr-8"
             />
             <h2 className="text-3xl font-bold">1. Problems with hearing – "I can't hear" 🎧</h2>
           </div>
@@ -65,10 +69,12 @@ export default function PerceivablePage() {
         {/* Section 2: Problems with vision */}
         <section className="mb-16">
           <div className="mb-8 flex items-center">
-            <img
+            <Image
               src="/static/images/articles-media/duckerOk.png"
               alt="Duck with thick glasses"
-              className="mr-8 h-48 w-48"
+              width={192}
+              height={192}
+              className="mr-8"
             />
             <h2 className="text-3xl font-bold">2. Problems with vision – "I can't see well" 👓</h2>
           </div>
@@ -127,32 +133,6 @@ export default function PerceivablePage() {
             Want to learn more about how to implement perceivable content? Check out these sections
             in <strong>LVL 2: Accessibility Basics</strong>:
           </p>
-          <ul className="mt-4 list-inside list-disc text-gray-700">
-            <li>
-              <strong>Understand ARIA Roles</strong> – Learn what ARIA roles are, when to use them,
-              and how to test their implementation.
-            </li>
-            <li>
-              <strong>Keyboard Navigation / Focus Management</strong> – Test focus management,
-              tabindex, and keyboard interactions.
-            </li>
-            <li>
-              <strong>Screen Readers</strong> – Introduction to NVDA, VoiceOver, and other screen
-              readers.
-            </li>
-            <li>
-              <strong>Color Contrast and Design</strong> – Learn WCAG color contrast requirements
-              and how to validate them.
-            </li>
-            <li>
-              <strong>Accessible Forms</strong> – Proper labels, hints, and validation for
-              accessible forms.
-            </li>
-            <li>
-              <strong>Dynamic Content and ARIA Live Regions</strong> – Test dynamic content like
-              alerts and notifications using ARIA live regions.
-            </li>
-          </ul>
         </section>
       </main>
     </div>
