@@ -2,7 +2,7 @@
 const siteMetadata = {
   title: 'DuckerQA Blog – Where Testing Gets Quacky',
   author: 'Mateusz Czerewko (Ducker)',
-  headerTitle: 'Ducker',
+  headerTitle: 'QA_Ducker',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
   theme: 'system', // system, dark or light
