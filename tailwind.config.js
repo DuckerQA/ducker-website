@@ -37,9 +37,9 @@ module.exports = {
         DEFAULT: {
           css: {
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.blue.600'), // Light mode color
               '&:hover': {
-                color: `${theme('colors.primary.600')}`,
+                color: '#1e3a8a', // Brighter hover color for light mode
               },
               code: { color: theme('colors.primary.400') },
             },
@@ -51,7 +51,7 @@ module.exports = {
               fontWeight: '600',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: '#4649c4', // Light mode color for <code>
             },
             img: {
               display: 'block', 
@@ -65,14 +65,17 @@ module.exports = {
         invert: {
           css: {
             a: {
-              color: theme('colors.primary.500'),
+              color: '#a3b2ff', // Dark mode color
               '&:hover': {
-                color: `${theme('colors.primary.400')}`,
+                color: '#ffffff',
               },
               code: { color: theme('colors.primary.400') },
             },
             'h1,h2,h3,h4,h5,h6': {
               color: theme('colors.gray.100'),
+            },
+            code: {
+              color: '#8c8fff', // Dark mode color for <code>
             },
             img: {
               display: 'block',
