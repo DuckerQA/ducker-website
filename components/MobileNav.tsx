@@ -4,11 +4,13 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useRef, useEffect } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
+import { usePathname } from 'next/navigation'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
   const [hydrated, setHydrated] = useState(false)
   const navRef = useRef<HTMLDivElement | null>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     setHydrated(true)
@@ -29,7 +31,7 @@ const MobileNav = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
+          className="h-8 w-8 text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-[#a3b2ff]"
         >
           <path
             fillRule="evenodd"
@@ -64,7 +66,7 @@ const MobileNav = () => {
               <button
                 aria-label="Close menu"
                 onClick={() => setNavShow(false)}
-                className="absolute right-4 top-4 rounded-md text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
+                className="absolute right-4 top-4 rounded-md text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-[#a3b2ff]"
               >
                 {/* Close Icon */}
                 <svg
@@ -88,16 +90,25 @@ const MobileNav = () => {
                 <p id="mobile-menu-description" className="sr-only">
                   Navigate to the main sections of the website
                 </p>
-                {headerNavLinks.map((link) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    onClick={() => setNavShow(false)}
-                    className="block text-xl font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-blue-400"
-                  >
-                    {link.title}
-                  </Link>
-                ))}
+                {headerNavLinks.map((link) => {
+                  const isActive =
+                    link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
+
+                  return (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      onClick={() => setNavShow(false)}
+                      className={`relative block text-xl font-medium ${
+                        isActive
+                          ? 'text-blue-600 dark:text-[#a3b2ff] underline decoration-blue-600 dark:decoration-[#a3b2ff]'
+                          : 'text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-[#a3b2ff]'
+                      } focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:focus-visible:ring-[#a3b2ff] dark:focus-visible:ring-offset-gray-950`}
+                    >
+                      {link.title}
+                    </Link>
+                  )
+                })}
               </nav>
             </div>
           </div>
