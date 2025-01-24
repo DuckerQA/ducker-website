@@ -44,12 +44,12 @@ export default function Projects() {
                   </div>
 
                   {/* Arrow Link */}
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 shadow">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 shadow dark:border-[#a3b2ff]">
                     <Link
                       href={project.href || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                      className="flex h-full w-full items-center justify-center text-blue-500 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-[#a3b2ff] dark:hover:text-[#8c8fff] dark:focus-visible:ring-[#a3b2ff]"
                       aria-label={`Open project: ${project.title}`}
                     >
                       <svg
@@ -91,15 +91,18 @@ export default function Projects() {
                           key={techIndex}
                           className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 dark:border-gray-700 dark:bg-gray-800"
                         >
-                          {techIcon && (
-                            <Image
-                              src={techIcon}
-                              alt={techName}
-                              width={20}
-                              height={20}
-                              className="object-contain"
-                            />
-                          )}
+                          {/* Circle Wrapper for Icon */}
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700">
+                            {techIcon && (
+                              <Image
+                                src={techIcon}
+                                alt={techName}
+                                width={16}
+                                height={16}
+                                className="object-contain"
+                              />
+                            )}
+                          </div>
                           <span className="text-sm text-gray-800 dark:text-gray-300">
                             {techName}
                           </span>

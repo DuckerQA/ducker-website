@@ -61,47 +61,47 @@ export default function ListLayoutWrapper({ posts, title }: ListLayoutProps) {
         </p>
       </div>
 
-  <div
-  className="scrollbar-hide relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 pt-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
-  role="region"
-  aria-labelledby="tag-filter-heading"
-  style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }}
->
-  <h2 id="tag-filter-heading" className="sr-only">
-    Tag Filter
-  </h2>
+      <div
+        className="scrollbar-hide relative -mx-4 mb-8 flex gap-4 overflow-x-auto px-4 pb-2 pt-2 sm:flex-wrap sm:gap-6 sm:overflow-visible"
+        role="region"
+        aria-labelledby="tag-filter-heading"
+        style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px' }}
+      >
+        <h2 id="tag-filter-heading" className="sr-only">
+          Tag Filter
+        </h2>
 
-  {/* "All Posts" Button */}
-  <button
-    onClick={() => toggleTag(null)}
-    aria-pressed={selectedTag === null}
-    aria-label={`Show all posts (${totalPostsCount} total)`}
-    className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
-      selectedTag === null
-        ? 'bg-blue-600 text-white shadow-lg dark:bg-[#a3b2ff] dark:text-[#202128]' // Active state
-        : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700' // Default state
-    }`}
-  >
-    All posts [{totalPostsCount}]
-  </button>
+        {/* "All Posts" Button */}
+        <button
+          onClick={() => toggleTag(null)}
+          aria-pressed={selectedTag === null}
+          aria-label={`Show all posts (${totalPostsCount} total)`}
+          className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+            selectedTag === null
+              ? 'bg-blue-600 text-white shadow-lg dark:bg-[#a3b2ff] dark:text-[#202128]' // Active state
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700' // Default state
+          }`}
+        >
+          All posts [{totalPostsCount}]
+        </button>
 
-  {/* Tag Buttons */}
-  {sortedTags.map((tag) => (
-    <button
-      key={tag}
-      onClick={() => toggleTag(tag)}
-      aria-pressed={selectedTag === tag}
-      aria-label={`Filter by tag: ${tag} (${tagCounts[tag]} posts)`}
-      className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
-        selectedTag === tag
-          ? 'bg-blue-600 text-white shadow-lg dark:bg-[#a3b2ff] dark:text-[#202128]' // Active state
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700' // Default state
-      }`}
-    >
-      {`${tag} [${tagCounts[tag]}]`}
-    </button>
-  ))}
-</div>
+        {/* Tag Buttons */}
+        {sortedTags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => toggleTag(tag)}
+            aria-pressed={selectedTag === tag}
+            aria-label={`Filter by tag: ${tag} (${tagCounts[tag]} posts)`}
+            className={`flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ${
+              selectedTag === tag
+                ? 'bg-blue-600 text-white shadow-lg dark:bg-[#a3b2ff] dark:text-[#202128]' // Active state
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700' // Default state
+            }`}
+          >
+            {`${tag} [${tagCounts[tag]}]`}
+          </button>
+        ))}
+      </div>
 
       {/* arrow on mobile */}
       <div

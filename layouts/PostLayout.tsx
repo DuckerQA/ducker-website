@@ -110,11 +110,11 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                           Next Article
                         </p>
                         <Link
-                        href={`/${next.path}`}
-                        className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-[#a3b2ff]"
-                      >
-                        {next.title}
-                      </Link>
+                          href={`/${next.path}`}
+                          className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-[#a3b2ff]"
+                        >
+                          {next.title}
+                        </Link>
                       </div>
                     )}
                   </div>

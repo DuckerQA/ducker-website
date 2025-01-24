@@ -101,7 +101,7 @@ const MobileNav = () => {
                       onClick={() => setNavShow(false)}
                       className={`relative block text-xl font-medium ${
                         isActive
-                          ? 'text-blue-600 dark:text-[#a3b2ff] underline decoration-blue-600 dark:decoration-[#a3b2ff]'
+                          ? 'text-blue-600 underline decoration-blue-600 dark:text-[#a3b2ff] dark:decoration-[#a3b2ff]'
                           : 'text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-[#a3b2ff]'
                       } focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:focus-visible:ring-[#a3b2ff] dark:focus-visible:ring-offset-gray-950`}
                     >

@@ -54,10 +54,10 @@ module.exports = {
               color: '#4649c4', // Light mode color for <code>
             },
             img: {
-              display: 'block', 
-              margin: '0 auto', 
-              borderRadius: theme('borderRadius.lg'), 
-              maxWidth: '100%', 
+              display: 'block',
+              margin: '0 auto',
+              borderRadius: theme('borderRadius.lg'),
+              maxWidth: '100%',
               height: 'auto',
             },
           },
