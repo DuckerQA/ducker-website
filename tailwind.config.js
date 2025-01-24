@@ -53,6 +53,13 @@ module.exports = {
             code: {
               color: theme('colors.indigo.500'),
             },
+            img: {
+              display: 'block', 
+              margin: '0 auto', 
+              borderRadius: theme('borderRadius.lg'), 
+              maxWidth: '100%', 
+              height: 'auto',
+            },
           },
         },
         invert: {
@@ -66,6 +73,13 @@ module.exports = {
             },
             'h1,h2,h3,h4,h5,h6': {
               color: theme('colors.gray.100'),
+            },
+            img: {
+              display: 'block',
+              margin: '0 auto',
+              borderRadius: theme('borderRadius.lg'),
+              maxWidth: '100%',
+              height: 'auto',
             },
           },
         },

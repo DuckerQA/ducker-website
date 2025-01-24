@@ -28,7 +28,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
     <>
       {/* Main Content Section */}
       <SectionContainer>
-        <article>
+        <article className="article">
           <div className="space-y-10">
             {/* Header */}
             <header>
