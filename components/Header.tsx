@@ -47,7 +47,7 @@ const Header = () => {
         <Link
           href="/"
           aria-label={siteMetadata.headerTitle}
-          className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-blue-500 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950"
+          className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-[#a3b2ff] dark:focus-visible:ring-[#a3b2ff] dark:focus-visible:ring-offset-gray-950"
         >
           <div className="flex items-center justify-between">
             <div className="mr-3">
@@ -84,12 +84,18 @@ const Header = () => {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className={`block rounded-md font-medium ${
+                  className={`relative block rounded-md font-medium ${
                     isActive
-                      ? 'text-blue-700 dark:text-blue-500'
-                      : 'text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-blue-500'
-                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-950`}
+                      ? 'text-gray-900 dark:text-gray-100' // Active state text color stays same
+                      : 'text-gray-900 hover:text-blue-700 dark:text-gray-100 dark:hover:text-[#a3b2ff]' // Hover color
+                  } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-[#a3b2ff] dark:focus-visible:ring-offset-gray-950`}
                 >
+                  {isActive && (
+                    <span
+                      className="absolute bottom-[-10px] left-0 h-[4px] w-full bg-blue-700 dark:bg-[#a3b2ff]"
+                      aria-hidden="true"
+                    ></span>
+                  )}
                   {link.title}
                 </Link>
               )

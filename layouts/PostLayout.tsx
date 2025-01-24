@@ -98,7 +98,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                         </p>
                         <Link
                           href={`/${prev.path}`}
-                          className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                          className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-[#a3b2ff]"
                         >
                           {prev.title}
                         </Link>
@@ -111,7 +111,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                         </p>
                         <Link
                           href={`/${next.path}`}
-                          className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-blue-400"
+                          className="mt-1 block text-base font-semibold text-blue-600 hover:underline dark:text-[#a3b2ff]"
                         >
                           {next.title}
                         </Link>
