@@ -2,14 +2,14 @@
 const siteMetadata = {
   title: 'DuckerQA Blog – Where Testing Gets Quacky',
   author: 'Mateusz Czerewko (Ducker)',
-  headerTitle: 'QA_Ducker',
+  headerTitle: 'QA Ducker',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://ducker-website.vercel.app/',
   siteRepo: 'https://github.com/DuckerQA/ducker-website',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-light.png`,
-  siteLogoDark: `${process.env.BASE_PATH || ''}/static/images/logo-dark.png`,
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/lightmode-logo.svg`,
+  siteLogoDark: `${process.env.BASE_PATH || ''}/static/images/darkmode-logo.svg`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'mateuszczerewko@gmail.com',

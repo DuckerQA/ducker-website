@@ -32,7 +32,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
           <div className="space-y-10">
             {/* Header */}
             <header>
-              <div className="mb-12 md:mb-4">
+              <div className="mb-12 md:mb-4 mt-4">
                 <Link
                   href={`/${basePath}`}
                   className="inline-flex items-center gap-2 rounded-lg border border-[#4b63d8]/80 bg-white/0 px-4 py-2 text-base font-semibold leading-normal text-[#4b63d8] shadow hover:text-blue-500 dark:border-[#a3b2ff]/80 dark:text-[#a3b2ff] dark:hover:text-blue-400"

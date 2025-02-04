@@ -1,21 +1,25 @@
 import Link from './Link'
 import siteMetadata from '@/data/siteMetadata'
 import Image from 'next/image'
+import { useTheme } from 'next-themes'
 
 export default function Footer() {
+  const { resolvedTheme } = useTheme()
+  const logoSrc = resolvedTheme === 'dark' ? siteMetadata.siteLogoDark : siteMetadata.siteLogo
+
   return (
     <footer className="w-full border-t border-gray-200 dark:border-white/10">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12">
         {/* Logo and Social Icons */}
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           {/* Logo */}
-          <div className="flex items-center gap-4">
-            <div className="relative h-12 w-[47px]">
+          <div className="flex items-center">
+            <div className="relative h-12 w-[70px]">
               <Image
-                src="/static/images/projects/basicDuck.png"
+                src={logoSrc}
                 alt="QA Ducker Logo"
-                width={47}
-                height={48}
+                width={50}
+                height={50}
                 priority
                 className="object-contain"
               />
@@ -94,18 +98,6 @@ export default function Footer() {
             >
               Projects
             </Link>
-            {/* <Link
-              href="/terms"
-              className="rounded hover:underline focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
-              Terms
-            </Link>
-            <Link
-              href="/privacy"
-              className="rounded hover:underline focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
-              Privacy
-            </Link> */}
           </nav>
           <div className="flex items-center justify-center gap-3 text-sm text-[#000833]/40 dark:text-white/50">
             <div>{`© ${new Date().getFullYear()}`}</div>
