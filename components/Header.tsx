@@ -50,8 +50,8 @@ const Header = () => {
           className="flex items-center rounded-md font-medium text-gray-900 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:text-gray-100 dark:hover:text-[#a3b2ff] dark:focus-visible:ring-[#a3b2ff] dark:focus-visible:ring-offset-gray-950"
         >
           <div className="flex items-center justify-between">
-            <div className="mr-3">
-              <Image src={logoSrc} alt={siteMetadata.headerTitle} width={104} height={104} />
+            <div className="mr-3 mt-2">
+              <Image src={logoSrc} alt={siteMetadata.headerTitle} width={70} height={70} />
             </div>
             {typeof siteMetadata.headerTitle === 'string' ? (
               <div className="hidden h-6 text-2xl font-semibold sm:block">
